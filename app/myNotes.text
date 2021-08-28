@@ -1,0 +1,242 @@
+composer create-project laravel/laravel example-app لانشاء مشروع 
+
+session() -> put("" , "") يستخدم لوضع قيمه واحده داخل السشن
+-----------------------------------------------------------------------------------------------------
+session() -> get("name") يستخدم لجلب قيمه معينه من السشن
+-----------------------------------------------------------------------------------------------------
+session() -> flush("" , "") هذه القيمه اشبه بال put وهي تستخدم لاضافت قيمه وطباعتها ثم ازالتها
+-----------------------------------------------------------------------------------------------------
+session() -> forget("") تستخدم لازاله القيمه من السشن
+-----------------------------------------------------------------------------------------------------
+session() -> has("") لمعرفه هل هذا العضو مسجل ام لا
+-----------------------------------------------------------------------------------------------------
+session()->push("" , array) تستخدم لتخزين مجموعه من القيم في العنصر كاراي
+-----------------------------------------------------------------------------------------------------
+trans("folderName.key")
+-----------------------------------------------------------------------------------------------------
+composer require name الاصدار
+------------------------------------------------------------------------------------------------------
+
+self::class معناه انه نفس الجدول
+
+Routr lecone
+{
+-------------------------------------------------------------
+1- numper of Route {
+    get , post , put , option , delete , patch
+}
+-------------------------------------------------------------
+Route::get("test/{id}" , function ($id) {
+    return $id; هذا معناه انه يجب ادخال هذا المتغير
+})
+-------------------------------------------------------------
+Route::get("test/{id؟}" , function ($id) {
+    return $id; هذا معناه انه سواء اكان موجود او لا سيتم التنفير
+})
+-------------------------------------------------------------
+<a href="{{route('a' , 5)}}">a</a>
+-------------------------------------------------------------
+
+Route::namespace("Front")->group(function () {
+   Route::get("reda" , "test@test");
+});
+-------------------------------------------------------------
+Route::prefix("users")-> group(function() {
+    Route::get("one" , function () {
+        return "one";
+    });
+});
+
+-------------------------------------------------------------
+Route::group(["prefix" => "coco" , "middelware" => "auth"] , function() {
+    Route::get("toto" , function() {
+        return "my name is ahmed";
+    });
+});
+-------------------------------------------------------------
+Route::group(["prefix" => "acount" , "middelware" => "auth" , "namespace" => "Front"]
+-------------------------------------------------------------
+middelware -> هي عباره عن حاجه بتمنعك من ذيارت لنك معين الا بعد عمل شروط معينه
+مثال
+
+Route::get("middel" , function() {
+    return "middel ware";
+}) -> middelware("auth");
+
+-------------------------------------------------------------
+<link rel="stylesheet" href="{{URL::asset('css/index.css')}}">
+-------------------------------------------------------------
+<h1>{{__('admin.descrip')}}</h1> الترجمه
+-------------------------------------------------------------
+
+auth {
+    1- composer require laravel/ui "^1.2" for version 6 || composer require laravel/ui:^2.4 for version 7
+    2- npm install & npm run dev
+    3- php artisan ui vue --auth
+
+}
+-------------------------------------------------------------
+composer dump-autoload بخصوص الايميل
+-------------------------------------------------------------
+composer require والشي الي انت عاوز تثبته
+-------------------------------------------------------------
+لتسطيب مكتبه socialite
+1- composer require socialite
+-------------------------------------------------------------
+git add .
+git commit -m "fff"
+git pull origin master
+-------------------------------------------------------------
+
+عند عمل موديل يجب اتباع الاتي في التسميه
+1- اول حرف يجب ان يكون kabital
+2- ولا يجب ان يكون الاس جمع وذلك لان laravel تضيف له s ومن ثم تبحث عنه
+
+elequant
+
+1- {
+    select (select("id" , "post")->where("id" , "1")->get())
+}
+2- {
+    postss::create([
+    "post" => "ahmed reda alsahed",
+    "comments" => 1,
+    "descrip" => "you can post this post hir",
+    ]);
+}
+3- {
+    خاصين بالجداول
+    $data->makeVisible(['password']);
+    $data->makeHidden(["email_verified_at"]);
+    $data = User::whereHas("viewos")->get();
+    $data = User::whereDoesntHave("viewos")->get();
+    {
+        $data = User::first();
+        $data->makeVisible(['password']);
+        $data->makeHidden(["email_verified_at"]);
+        return $data;
+    }
+    { حذف البيانات من الجدول
+        $table -> العلاقه -> delete() هذا السطر يستخدم لمسح ابيانات المتعلقه بالجدول الاساسي
+        $table -> delete();
+    }
+    many to many
+    {
+        belongsToMany("الجدول التاني الي بيروح عليه " , "pivot table الجدول الوسطي الي بيربط الجدولين ببعض" , "forign_key الخاص بالجدول الي انا واقف فيه الان" , "forign_key الخاص بالجدول التاني" , "id" , "id");
+    }
+    {
+        $data = User::whereHas("viewos")->get();
+        return $data;
+    }
+        return abort("404");
+        $data->one()->delete();
+        hospital::find(2)->delete();
+        attach(); $table + $relation() -> attach(الداتا); تقوم باضافه البيانات في الجدول البيفوت
+        sync();  $table + $relation() -> attach(الداتا); تقوم باضافه البيانات في الجدول البيفوت ولاكن تقوم بمسح كل الداتا القديمه الخاصه بهازا العنصر(updateing)
+
+        syncWithoutDetaching() بتخزن علي القديم من غير ما تقرر ولا تمسح
+}
+انواع where {
+    whereNull() ,
+    where(),
+    whereIn(),
+    whereNotNull(),
+}
+paginate(الرقم)
+
+
+اللغه <
+composer require mcamara/laravel-localization يجب تثبيت هذه الحزمه اولا
+
+}
+علشان اعمل helper function استخدمها في المشروع في اي مكان
+اذهب لل bakeg.jason في auto-load
+واضع
+files : [
+    مسار الملف الصحيح
+]
+هذا الامر يستخدم لاعاده تشغبل المشروع
+composer dump-autoload
+
+عند ارسال الداتا بسرعه
+نستخدم
+table::create($request)->except([""])ماعدا الي بين الاقواس
+
+
+/*----------------------------------------------/
+لكي اجيب default language
+config::get('app.locale');
+/*----------------------------------------------/
+
+/*----------------------------------------------/
+model::pluck("email")->toArray() تستخدم لكي احول الداتا اي array
+/*----------------------------------------------/
+
+/*----------------------------------------------/
+php artisan config cach عند حدوث اي تغير في ملف config يجب كتابه هذا الكود
+/*----------------------------------------------/
+
+عند حدوث اي تغير في ملف config
+يجب كتابه هذا الكود
+php artisan config:cache
+
+table::insertGitId()  = table::create() الفرق ان الاولي بترجع id
+
+
+
+
+        try {
+        DB::beginTransaction();
+
+           DB::commit();
+        } catch (\Exception $th) {
+
+            DB::rollBack();
+        }
+
+
+
+
+
+
+كيفيه عمل اشعار معين by notification
+
+1 - php artisan make:notification name
+2-  Notification::send($vindoer , new vindowers($vindoer));
+
+
+public function setactiveAttribute($password) {
+        if(!empty($password)) {
+            $this->attributes["password"] = bcrypt($password);
+        }
+    }
+
+
+*-----------------------------------------------------------------------------*
+makeobserver
+php artisan make:observe الاسم --model= اسم الجدول بالمسار الحقيقي له
+هذا الكلاس يستخدم في الاتي اذا كنت تريد عمل اي شيء علي الجدول التالي  مثل اضافه تعديل حذف اي شيء سيفيدك هذا
+
+*-----------------------------------------------------------------------------*
+
+
+$variable = $request -> except("" , "")
+
+
+
+
+
+كود مهم جدا لجعل ملف htdocs غير مفعل للعامه {
+    # Disable Directory listing
+    Options -Indexes
+    # block files which needs to be hidden // in here specify .example extension of the file
+    <Files ~ "\.(env|json|config.js|md|gitignore|gitattributes|lock)$">
+        Order allow,deny
+        Deny from all
+    </Files>
+    # in here specify full file name sperator '|'
+    <Files ~ "(artisan)$">
+        Order allow,deny
+        Deny from all
+    </Files>
+}
