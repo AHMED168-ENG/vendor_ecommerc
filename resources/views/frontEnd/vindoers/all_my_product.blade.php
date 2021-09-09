@@ -1,0 +1,353 @@
+@extends('frontEnd/vindoers/vindoer_home')
+
+@section('content')
+
+            <!-- Start Section Products -->
+            <div class="category-products">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <h5 class="head_title">
+                                جميع منتاجاتي
+                            </h5>
+
+                            <br />
+
+                            <div class="row">
+
+                                @foreach ($all_my_product as $key => $item)
+                                <div class="wrapper col-md-3" style="border:1px solid #ddd ;padding:0;margin:0">
+                                    <div class="container" style="width:100% !important ; padding:0">
+                                      <div class="top" style="background-size:cover;position: relative;background:url('{{asset("public/asset/admin/images/products_image") . "/" . explode("__" , $item -> product_photo)[0]}}')">
+                                        <div style="width:100%;
+                                        height:100%;
+                                        position:absolute;
+                                        top:0;
+                                        left:0;
+                                        background:rgba(0,0,0,0.1)"></div>
+                                     </div>
+                                      <div class="bottom">
+                                        <div class="left">
+                                          <div class="details">
+                                            <h1 class="h4" style="margin-bottom:5px">{{$item -> name}}</h1>
+                                            <p>£ <span style="font-size:20px">{{$item -> price}}</span></p>
+                                          </div>
+                                          <div class="buy" ><a href="{{route("edit_product_vindoer" , $item -> id)}}" style="display: flex;flex-direction:column;height:50%;background:#737070;"><i style=";height:100%;padding:0;display:flex !important;align-items:center;justify-content:center" class="fa fa-edit"></i></a><a href="" style="display: flex;flex-direction:column;height:50%;background:#757575;"><i style="padding:0;display:flex !important;align-items:center;justify-content:center;height:100%" class="fa fa-trash"></i></a></div>
+                                        </div>
+                                        <div class="right">
+                                          <div class="done" style=""><i style="padding:0" class="fa fa-check"></i></div>
+                                          <div class="details">
+                                            <h1>Chair</h1>
+                                            <p>Added to your cart</p>
+                                          </div>
+                                          <div class="remove" onclick="remove({{$key}})" style="clear:none;display:flex !important;align-items:center;justify-content:center;"><i style="padding:0" class="fa fa-times"></i></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="inside">
+                                      <div class="icon"><i class="material-icons">info_outline</i></div>
+                                      <div class="contents">
+                                        <table>
+                                          <tr>
+                                            <th>Width</th>
+                                            <th>Height</th>
+                                          </tr>
+                                          <tr>
+                                            <td>3000mm</td>
+                                            <td>4000mm</td>
+                                          </tr>
+                                          <tr>
+                                            <th>Something</th>
+                                            <th>Something</th>
+                                          </tr>
+                                          <tr>
+                                            <td>200mm</td>
+                                            <td>200mm</td>
+                                          </tr>
+                                          <tr>
+                                            <th>Something</th>
+                                            <th>Something</th>
+                                          </tr>
+                                          <tr>
+                                            <td>200mm</td>
+                                            <td>200mm</td>
+                                          </tr>
+                                          <tr>
+                                            <th>Something</th>
+                                            <th>Something</th>
+                                          </tr>
+                                          <tr>
+                                            <td>200mm</td>
+                                            <td>200mm</td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </div>
+                                  </div>
+                                @endforeach
+                                <div class="paginat col-12 justify-content-center d-flex">
+                                    {{ $all_my_product->links() }}
+                                </div>
+
+                            </div><!-- End row -->
+                        </div><!-- End col 9 -->
+
+
+                    </div><!-- End Row -->
+
+                </div>
+            </div>
+            <!-- End Section Products -->
+            @section('script')
+                <script>
+                    var ele1 = document.querySelectorAll(".wrapper .buy");
+                    var ele2 = document.querySelectorAll(".wrapper .remove");
+                    function buy(id) {
+                        ele1[id].parentElement.parentElement.classList.add("clicked");
+                    }
+                    function remove(id) {
+                        ele2[id].parentElement.parentElement.classList.remove("clicked");
+                    }
+
+                </script>
+            @endsection
+            <style>
+
+                .catigors {
+                    margin-top:50px
+                }
+                .catigors h4 {
+                    margin-bottom:50px
+                }
+                .catigors ul li a {
+                    font-size:15px;
+                    font-style: italic;
+                    display: block;
+                    margin-bottom:7px;
+                    color:#222;
+                }
+                .catigors ul li a:hover {
+                    color:rgb(87, 87, 230)
+                }
+                html, body {
+                background: #fff;
+                font-family: sans-serif;
+                }
+
+                    .wrapper {
+                    width: 300px;
+                    height: 500px;
+                    text-align: left;
+                    direction: ltr;
+                    background: white;
+                    margin: auto;
+                    position: relative;
+                    overflow: hidden;
+                    border-radius: 10px 10px 10px 10px;
+                    box-shadow: 0;
+                    transform: scale(0.95);
+                    transition: box-shadow 0.5s, transform 0.5s;
+                    box-shadow: 3px 5px 15px rgba(0, 0, 0, 0.1)
+                    }
+                    .wrapper:hover {
+                    transform: scale(0.97);
+                    box-shadow: 5px 20px 30px rgba(0, 0, 0, 0.2);
+                    }
+                    .wrapper .container {
+                    width: 100%;
+                    height: 100%;
+                    }
+                    .wrapper .container .top {
+                    height: 80%;
+                    width: 100%;
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;
+                    background-size: cover;
+                    background-position: center center
+                    }
+                    .wrapper .container .bottom {
+                    width: 200%;
+                    height: 20%;
+                    transition: transform 0.5s;
+                    }
+                    .wrapper .container .bottom.clicked {
+                    transform: translateX(-50%);
+                    }
+                    .wrapper .container .bottom h1 {
+                    margin: 0;
+                    padding: 0;
+                    }
+                    .wrapper .container .bottom p {
+                    margin: 0;
+                    padding: 0;
+                    }
+                    .wrapper .container .bottom .left {
+                    height: 100%;
+                    width: 50%;
+                    background: #d0d0d0;
+                    position: relative;
+                    float: left;
+                    }
+                    .wrapper .container .bottom .left .details {
+                    padding: 20px;
+                    float: left;
+                    width: calc(70% - 40px);
+                    }
+                    .wrapper .container .bottom .left .buy {
+                    float: right;
+                    width: calc(30% - 2px);
+                    height: 100%;
+                    background: #f1f1f1;
+                    transition: background 0.5s;
+                    border-left: solid thin rgba(0, 0, 0, 0.1);
+                    }
+                    .wrapper .container .bottom .left .buy i {
+                    font-size: 22px;
+                    padding: 30px;
+                    color: #Fff;
+                    transition: transform 0.5s;
+
+                    }
+                    .wrapper .container .bottom .left .buy:hover {
+                    background: #A6CDDE;
+                    }
+                    /*.wrapper .container .bottom .left .buy:hover i {
+                    transform: translateY(5px);
+                    color: #00394B;
+                    }*/
+                    .wrapper .container .bottom .right {
+                    width: 50%;
+                    background: #A6CDDE;
+                    color: white;
+                    float: right;
+                    height: 200%;
+                    overflow: hidden;
+                    }
+                    .wrapper .container .bottom .right .details {
+                    padding: 20px;
+                    float: right;
+                    width: calc(70% - 40px);
+                    }
+                    .wrapper .container .bottom .right .done {
+                    width: calc(30% - 2px);
+                    float: left;
+                    transition: transform 0.5s;
+                    border-right: solid thin rgba(255, 255, 255, 0.3);
+                    height: 50%;
+                    cursor: pointer !important;
+
+                    }
+                    .wrapper .container .bottom .right .done i {
+                    font-size: 30px;
+                    padding: 30px;
+                    color: white;
+                    cursor: pointer;
+
+                    }
+                    .wrapper .container .bottom .right .remove {
+                    width: calc(30% - 1px);
+                    clear: both;
+                    border-right: solid thin rgba(255, 255, 255, 0.3);
+                    height: 50%;
+                    background: #BC3B59;
+                    transition: transform 0.5s, background 0.5s;
+                    }
+                    .wrapper .container .bottom .right .remove:hover {
+                    background: #9B2847;
+                    }
+                    .wrapper .container .bottom .right .remove:hover i {
+                    transform: translateY(5px);
+                    cursor: pointer;
+                    }
+                    .wrapper .container .bottom .right .remove i {
+                    transition: transform 0.5s;
+                    font-size: 30px;
+                    padding: 30px;
+                    color: white;
+                    cursor: pointer !important;
+                    }
+                    .wrapper .container .bottom .right:hover .remove, .wrapper .container .bottom .right:hover .done {
+                    transform: translateY(-100%);
+                    }
+                    .wrapper .inside {
+                    z-index: 9;
+                    background: #92879B;
+                    width: 140px;
+                    height: 140px;
+                    position: absolute;
+                    top: -70px;
+                    right: -70px;
+                    border-radius: 0px 0px 200px 200px;
+                    transition: all 0.5s, border-radius 2s, top 1s;
+                    overflow: hidden;
+                    }
+                    .wrapper .inside .icon {
+                    position: absolute;
+                    right: 85px;
+                    top: 85px;
+                    color: white;
+                    opacity: 1;
+                    }
+                    .wrapper .inside:hover {
+                    width: 100%;
+                    right: 0;
+                    top: 0;
+                    border-radius: 0;
+                    height: 80%;
+                    }
+                    .wrapper .inside:hover .icon {
+                    opacity: 0;
+                    right: 15px;
+                    top: 15px;
+                    }
+                    .wrapper .inside:hover .contents {
+                    opacity: 1;
+                    transform: scale(1);
+                    transform: translateY(0);
+                    }
+                    .wrapper .inside .contents {
+                    padding: 5%;
+                    opacity: 0;
+                    transform: scale(0.5);
+                    transform: translateY(-200%);
+                    transition: opacity 0.2s, transform 0.8s;
+                    }
+                    .wrapper .inside .contents table {
+                    text-align: left;
+                    width: 100%;
+                    }
+                    .wrapper .inside .contents h1, .wrapper .inside .contents p, .wrapper .inside .contents table {
+                    color: white;
+                    }
+                    .wrapper .inside .contents p {
+                    font-size: 13px;
+                    }
+                    .paginat .pagination li a , .paginat .pagination li span {
+                        border-radius: 0 !important
+                    }
+                    .paginat {
+                        margin:20px 0
+                    }
+                    .head_title {
+                        width:100%;
+                        display:block;
+                        text-align:center;
+                        font-size: 28px;
+                        position: relative;
+                    }
+                    .head_title::after {
+                        content:"";
+                        position: absolute;
+                        bottom:-12px;
+                        left:50%;
+                        transform:translateX(-50%);
+                        height:1px ;
+                        background:#062C4C;
+                        width:5%;
+                    }
+                </style>
+
+@endsection

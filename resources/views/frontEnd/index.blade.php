@@ -20,14 +20,11 @@
 
         <!-- Fonts -->
 
-        @yield('title')
+        <title>@yield('title')</title>
     </head>
     <body>
 
 
-@if(request() -> is("login") || request() -> is("register") || request() -> is("password_reset"))
-@include('frontEnd/inclueds/login_or_regist')
-@else
 <!-- start upper navebare -->
 @include('frontEnd/inclueds/UpperNavBar')
 <!-- end upper navebare -->
@@ -35,7 +32,6 @@
 <!-- start lower navebare -->
 @include('frontEnd/inclueds/lowerNaveBar')
 <!-- end lower navebare -->
-@endif
 
 
 
@@ -66,36 +62,6 @@
         <script src="{{asset("public/asset/frontEnd/js/main.js")}}"></script>
         <script src="{{asset("public/asset/frontEnd/slick/slick.js")}}"></script>
         <!-- Scripts -->
-        <script>
-            $(document).on('ready', function() {
-
-                $('.center').slick({
-                    rtl: true,
-                    centerMode: true,
-                    centerPadding: '60px',
-                    slidesToShow: 3,
-                    responsive: [
-                        {
-                          breakpoint: 768,
-                          settings: {
-                            arrows: false,
-                            centerMode: true,
-                            centerPadding: '40px',
-                            slidesToShow: 3
-                        }
-                    },
-                    {
-                      breakpoint: 480,
-                      settings: {
-                        arrows: false,
-                        centerMode: true,
-                        centerPadding: '40px',
-                        slidesToShow: 1
-                      }
-                    }
-                  ]
-                });
-            });
-        </script>
+        @yield('script')
     </body>
 </html>

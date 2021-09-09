@@ -52,8 +52,7 @@
                                             <th>الموبيل</th>
                                             <th>الايميل</th>
                                             <th>العنوان</th>
-                                            <th>القسم</th>
-                                            <th>الصوره</th>
+                                            <th>السجل التجاري</th>
                                             <th>التفعيل</th>
                                             <th>الإجراءات</th>
                                         </tr>
@@ -70,8 +69,7 @@
                                                         <td>{{$item -> mobil }}</td>
                                                         <td>{{$item -> email }}</td>
                                                         <td>{{$item -> addres }}</td>
-                                                        <td>{{App\models\vindoers\vindoers_model::find($item -> id)->catigory->name}}</td>
-                                                        <td><img style="width:60px;height:60px;display:block;margin:auto" src="{{ asset("public/asset/admin/images/vindoer_image") . "/" . $item -> photo}}" alt=""></td>
+                                                        <td><a href="{{asset("public/asset/admin/files/vindoers_files/") . "/" . $item ->Commercial_Register}}" style="width:60px;height:60px;display:block;margin:auto">السجل التجاري</a></td>
                                                         <td>{{$item -> active == 0 ? "closed" : "open"}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group"

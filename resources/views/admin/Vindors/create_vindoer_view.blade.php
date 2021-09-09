@@ -68,6 +68,16 @@ add vindoer
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
+                                                            <label for="catigory"> اسم المتجر الخاص بك - {{__("message." . git_default_language())}} </label>
+                                                            <input  class="form-control" name="shop_name" value="{{old("shop_name")}}" type="text" placeholder="ادخل اسم المتجر الخاص بك">
+                                                            @error('shop_name')
+                                                            <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
                                                             <label for="email">  ايميل التاجر </label>
                                                             <input type="text" id="email"
                                                                 class="form-control"
@@ -111,12 +121,12 @@ add vindoer
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="photo"> صوره المنتج </label>
-                                                            <input type="file" id="photo"
+                                                            <label for="Commercial_Register"> السجل التجاري </label>
+                                                            <input type="file" id="Commercial_Register"
                                                                 class="form-control"
                                                                 placeholder="ادخل صوره القسم"
-                                                                name="photo">
-                                                            @error("photo")
+                                                                name="Commercial_Register">
+                                                            @error("Commercial_Register")
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
                                                         </div>
@@ -138,22 +148,6 @@ add vindoer
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="catigory"> القسم - {{__("message." . git_default_language())}} </label>
-                                                            <select style="width:100%" name="catigory" class="select2 form-control">
-                                                                <optgroup label="من فضلك أختر قسم التاجر ">
-                                                                    @foreach ($catigory as $item)
-                                                                        <option value="{{$item -> id}}" {{old("catigory") == $item -> id ? "selected" : ""}} >{{$item -> name}}</option>
-                                                                    @endforeach
-                                                                </optgroup>
-                                                            </select>
-                                                            @error('catigory')
-                                                            <span class="text-danger">{{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
                                                             <label for="mobil">الموبايل - {{__("message." . git_default_language())}}</label>
                                                             <input type="text" id="mobil"
                                                                 class="form-control"
@@ -165,7 +159,19 @@ add vindoer
                                                             @enderror
                                                         </div>
                                                     </div>
-
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="shop_img"> صوره المنتج </label>
+                                                            <input type="file" id="shop_img"
+                                                                class="form-control"
+                                                                placeholder="ادخل صوره القسم"
+                                                                name="shop_img">
+                                                            @error("shop_img")
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" name="check_if_admin_enter_or_no" value="123">
                                                     <div class="col-md-6">
                                                         <div class="form-group mt-1">
                                                             <input type="checkbox"
@@ -183,6 +189,7 @@ add vindoer
                                                             class="card-title ml-1"> الحالة</label>
                                                         </div>
                                                     </div>
+
                                                 </div>
 
 

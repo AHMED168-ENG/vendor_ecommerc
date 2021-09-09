@@ -55,10 +55,13 @@ class subCatigory_controller extends Controller
             $subcatigory_default = $subcatigory_default -> filter(function($element ,$key) {
                 return $element["shourtcut"] == git_default_language();
             });
+            $subcatigory_default = array_values($subcatigory_default -> all());
             $data = $subcatigory_default[0];
             $data["photo"] = $photo;
             $data["translation_of"] = 0;
             $data["active"] = isset($data["active"]) ? "1" : "0";
+            $count_sup_cat = count($data["main_catigory_id"]) - 1 ;
+            $data["main_catigory_id"] = $data["main_catigory_id"][$count_sup_cat] == null ? $data["main_catigory_id"][$count_sup_cat - 1] : $data["main_catigory_id"][$count_sup_cat];
 
             $default_subCat = catigors_models::insertGetId($data);
             $subcatigory_normal = collect($request -> subcatigory);
@@ -68,12 +71,14 @@ class subCatigory_controller extends Controller
             $subcatigory_normal = array_values($subcatigory_normal->all());
             $arr = [];
             foreach ($subcatigory_normal as $key => $val) {
+                $count_sup_cat = count($request->subcatigory[$key]["main_catigory_id"]) - 1;
+                $sup = $request -> subcatigory[$key]["main_catigory_id"];
                 $arr[] = [
                     "name" => $val["name"],
                     "shourtcut" => $val["shourtcut"],
                     "translation_of" => $default_subCat,
                     "description" => $val["description"],
-                    "main_catigory_id" => $val["main_catigory_id"],
+                    "main_catigory_id" => $sup[$count_sup_cat] == null ?  $sup[$count_sup_cat - 1] : $sup[$count_sup_cat],
                     "photo" => $photo,
                     "active" => key_exists("active" , $val) ? "1" : "0",
                 ];
@@ -81,6 +86,7 @@ class subCatigory_controller extends Controller
             catigors_models::insert($arr);
             return errorMassage("تم تسجيل العنصر الفرعي بنجاح" , "success");
         } catch (\Exception $th) {
+            return $th;
             return errorMassage("" , "danger");
         }
 
@@ -111,7 +117,7 @@ class subCatigory_controller extends Controller
             if(!$subCatigory) {
                 return errorMassage("هذا العنصر غير موجود" , "danger");
             }
-            $language = getAllLanguageOfCatigory(catigors_models::class , 143);
+            $language = getAllLanguageOfCatigory(catigors_models::class , $id);
             return view("admin/subCatigory/edit_subCatigory" , compact("subCatigory" , "mainCatigory_model" , "language"));
         } catch (\Throwable $th) {
             return errorMassage("" , "danger");
@@ -138,10 +144,12 @@ class subCatigory_controller extends Controller
                 $photo = uploud_img($request -> photo , "public/asset/admin/images/subCatigory_photo");
             }
             foreach ($request -> subcatigory as $key => $value) {
+                $count_sup_cat = count($request->subcatigory[$key]["main_catigory_id"]);
+                $sup = $request -> subcatigory[$key]["main_catigory_id"];
                 catigors_models::find($value["id"]) -> update([
                     "name" => filter_var($value["name"] , FILTER_SANITIZE_STRING),
                     "description" => filter_var($value["description"] , FILTER_SANITIZE_STRING),
-                    "main_catigory_id" => filter_var($value["main_catigory_id"] , FILTER_SANITIZE_NUMBER_INT),
+                    "main_catigory_id" => $sup[0] == null ? catigors_models::find($value["id"]) -> main_catigory_id :($sup[$count_sup_cat - 1] == null ? $sup[$count_sup_cat - 2] : $sup[$count_sup_cat - 1]),
                     "active" => isset($value["active"]) ? filter_var($value["active"] , FILTER_SANITIZE_NUMBER_INT) : "0",
                     "photo" => $photo,
                 ]);
@@ -164,5 +172,12 @@ class subCatigory_controller extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function ajax_Get_supcatigory($id) {
+        $supcatigory = catigors_models::find($id)->get_supcatigory->where("id" , "!=" , request() -> supCatigory);
+        if(!isset(request() -> supCatigory)) {
+            $supcatigory = catigors_models::find($id)->get_supcatigory;
+        }
+        return array_values($supcatigory -> all());
     }
 }

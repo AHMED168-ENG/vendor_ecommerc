@@ -8,7 +8,6 @@ use App\models\languages\language;
 use Illuminate\Http\Request;
 use App\models\main_catigory\catigors_models;
 use App\models\vindoers\vindoers_model;
-use Illuminate\Support\Facades\DB;
 
 class catigors_controller extends Controller
 {
@@ -43,7 +42,7 @@ class catigors_controller extends Controller
                     "description" => $val[0]["description"],
                     "slug" => $val[0]["slug"],
                     "photo" => $photo,
-                    "active" => key_exists("active" , $val[0]) ? 1 : '0',
+                    "active" => isset($val[0]["active"]) ? "1" : "0",
                 ]);
                 $val = $catigory -> filter(function($value , $key) {
                     return $value["shourtcut"] != git_default_language();
@@ -58,7 +57,7 @@ class catigors_controller extends Controller
                         "description" => $val[$key]["description"],
                         "slug" => $val[$key]["slug"],
                         "photo" => $photo,
-                        "active" => isset($val[$key]["active"]) ? 1 : '0',
+                        "active" => isset($val[$key]["active"]) ? "1" : '0',
                     ];
                 }
                 catigors_models::insert($arr); /* هذه الطريقه افضل من اجل الجوده */
@@ -94,13 +93,14 @@ class catigors_controller extends Controller
                     "name" => $value["name"],
                     "description" => $value["description"],
                     "slug" => $value["slug"],
-                    "active" => isset($value["active"]) ? "1" : '0',
+                    "active" => isset($value["active"]) ? "1" : "0",
                     "photo" => $photo,
                 ]);
             }
-            return redirect() -> back() -> with(["message" => "تم تحديث القسم بنجاح" , "type" => "success"]);
+            return errorMassage("تم تحديث القسم بنجاح" , "success");
         } catch(\Exception $ex) {
-            return redirect() -> back() -> with(["message" => "هناك خطا ما يرجي الرجوع الي صانع الموقع " , "type" => "danger"]);
+            return $ex;
+            return errorMassage("" , "danger");
         }
     }
     public function active($id) {
@@ -110,10 +110,10 @@ class catigors_controller extends Controller
             return errorMassage("هذا العنصر غير موجود" , "danger");
         }
         $catigory -> update([
-            "active" => $active == 0 ? "1" : "0",
+            "active" => $active == "0" ? "1" : "0"
         ]);
-        $active = $active == 0 ? "تفعيل" : "الغاء تفعيل";
-        return errorMassage("تم $active القسم" , "success");
+        $active = $active == "0" ? "تم تفعيل القسم" : "تم الغاء تفعيل القسم";
+        return errorMassage($active , "success");
     }
 
 
@@ -126,9 +126,7 @@ class catigors_controller extends Controller
         $catigory = catigors_models::where("translation_of" , $id) -> orWhere("id" , "=" , $id)->get();
         if($catigory->count() == show_active_language() -> count() ) {
             foreach ($catigory as $key => $value) {
-                if(catigors_models::find($value->id)->vindower -> count() > 0) {
-                    return errorMassage("لايمكن حذف هذا القسم نظرا الي الاقسام الفرعيه الموجوده" , "danger");
-                }
+
             }
             foreach ($catigory as $key => $value) {
                 catigors_models::find($value->id)->delete();
@@ -136,11 +134,7 @@ class catigors_controller extends Controller
         } else {
             $trans_of = catigors_models::find($id)->translation_of;
             $catigory = catigors_models::where("id" , $trans_of)->orWhere("translation_of" , "=" , $trans_of)->get();
-            foreach ($catigory as $key => $value) {
-                if(catigors_models::find($value->id)->vindower -> count() > 0) {
-                    return errorMassage("لايمكن حذف هذا القسم نظرا الي الاقسام الفرعيه الموجوده" , "danger");
-                }
-            }
+
             foreach ($catigory as $key => $value) {
                 catigors_models::find($value->id)->delete();
             }
@@ -148,4 +142,5 @@ class catigors_controller extends Controller
         }
         return errorMassage("تم مسح القسم بنجاح" , "success");
     }
+
 }

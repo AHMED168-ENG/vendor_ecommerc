@@ -68,6 +68,30 @@ edit vindoer
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
+                                                            <label for="catigory"> اسم المتجر الخاص بك - {{__("message." . git_default_language())}} </label>
+                                                            <input  class="form-control" name="shop_name" value="{{$vindor -> shop_name}}" type="text" placeholder="ادخل اسم المتجر الخاص بك">
+                                                            @error('shop_name')
+                                                            <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" name="check_if_admin_enter_or_no" value="123">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="Commercial_Register"> السجل التجاري </label>
+                                                            <input type="file" id="Commercial_Register"
+                                                                class="form-control"
+                                                                placeholder="ادخل صوره القسم"
+                                                                name="Commercial_Register">
+                                                            @error("Commercial_Register")
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" name="hidden_Commercial_Register" value="{{$vindor -> Commercial_Register}}">
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
                                                             <label for="email">  ايميل التاجر - {{__("message." . git_default_language())}}</label>
                                                             <input type="text" id="email"
                                                                 class="form-control"
@@ -124,21 +148,7 @@ edit vindoer
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="catigory"> القسم - {{__("message." . git_default_language())}} </label>
-                                                            <select style="width:100%" name="catigory" class="select2 form-control">
-                                                                <optgroup label="من فضلك أختر قسم التاجر ">
-                                                                    @foreach ($catigory as $item)
-                                                                        <option value="{{$item -> id}}" {{$vindor -> catigory_id == $item -> id ? "selected" : ""}} >{{$item -> name}}</option>
-                                                                    @endforeach
-                                                                </optgroup>
-                                                            </select>
-                                                            @error('catigory')
-                                                            <span class="text-danger">{{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
+
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -175,12 +185,12 @@ edit vindoer
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="photo"> صوره المنتج </label>
-                                                        <input type="file" id="photo"
+                                                        <label for="shop_img"> صوره المتجر </label>
+                                                        <input type="file" id="shop_img"
                                                             class="form-control"
-                                                            placeholder="ادخل صوره القسم"
-                                                            name="photo">
-                                                        @error("photo")
+                                                            placeholder="ادخل صوره المتجر"
+                                                            name="shop_img">
+                                                        @error("shop_img")
                                                         <span class="text-danger"> {{$message}}</span>
                                                         @enderror
                                                     </div>
@@ -188,7 +198,7 @@ edit vindoer
 
                                                 <div class="col-md-6">
                                                     <div class="form-group" style="width:100px; height:100px">
-                                                        <img style="width:100%;height:100%" src="{{asset("public/asset/admin/images/vindoer_image/" . $vindor->photo)}}" >
+                                                        <img style="width:100%;height:100%" src="{{asset("public/asset/admin/images/vindoer_image/" . $vindor->shop_img)}}" >
                                                     </div>
                                                 </div>
 
@@ -202,7 +212,7 @@ edit vindoer
                                                     </button>
                                                 </div>
                                                 <input type="hidden" name="password2" value="{{$vindor -> password}}">
-                                                <input type="hidden" name="hidden_photo" value="{{$vindor -> photo}}">
+                                                <input type="hidden" name="hidden_photo" value="{{$vindor -> shop_img}}">
                                     </form>
                                 </div>
                             </div>

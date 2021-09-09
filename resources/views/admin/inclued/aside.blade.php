@@ -24,7 +24,7 @@
 
 
             <li class="nav-item"><a href=""><i class="la la-group"></i>
-                <span class="menu-title" data-i18n="nav.dash.main">الاقسام الريسيه </span>
+                <span class="menu-title" data-i18n="nav.dash.main">الاقسام الرءيسيه </span>
                 <span
                     class="badge badge badge-danger badge-pill float-right mr-2">{{App\models\main_catigory\catigors_models::MainCatigoryDefault()->get()->count()}}</span>
             </a>
@@ -65,6 +65,50 @@
                     </li>
                     <li class="{{request() -> url() == route("add_subCatigory") ? "active" : ""}}"><a class="menu-item" href="{{route("add_subCatigory")}}" data-i18n="nav.dash.crypto">أضافة
                         قسم فرعي </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item"><a href=""><i class="la la-male"></i>
+                <span class="menu-title" data-i18n="nav.dash.main">انواع السيارات</span>
+                <span
+                    class="badge badge badge-warning  badge-pill float-right mr-2">{{App\models\kind_of_car\kind_of_car_model::Car_kind_active()->Car_kind_default_language()->count()}}</span>
+            </a>
+                <ul class="menu-content">
+                    <li class="{{request() -> url() == route("all_kind_car") ? "active" : ""}}"><a class="menu-item" href="{{route("all_kind_car")}}"
+                                          data-i18n="nav.dash.ecommerce">عرض انواع السيارات </a>
+                    </li>
+                    <li class="{{request() -> url() == route("add_kind_car") ? "active" : ""}}"><a class="menu-item" href="{{route("add_kind_car")}}" data-i18n="nav.dash.crypto">اضافه نوع جديد</a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="nav-item"><a href=""><i class="la la-male"></i>
+                <span class="menu-title" data-i18n="nav.dash.main">موديلات السيارات</span>
+                <span
+                    class="badge badge badge-warning  badge-pill float-right mr-2">{{App\models\cars_model\cars_model::Car_Model_active()->count()}}</span>
+            </a>
+                <ul class="menu-content">
+                    <li class="{{request() -> url() == route("all_model_car") ? "active" : ""}}"><a class="menu-item" href="{{route("all_model_car")}}"
+                                          data-i18n="nav.dash.ecommerce">عرض الموديلات </a>
+                    </li>
+                    <li class="{{request() -> url() == route("add_model_car") ? "active" : ""}}"><a class="menu-item" href="{{route("add_model_car")}}" data-i18n="nav.dash.crypto">اضافه موديل جديد</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item"><a href=""><i class="la la-male"></i>
+                <span class="menu-title" data-i18n="nav.dash.main">المنتجات</span>
+                <span
+                    class="badge badge badge-warning  badge-pill float-right mr-2">{{App\models\products\product_model::Active()->Product_Default_lange()->count()}}</span>
+            </a>
+                <ul class="menu-content">
+                    <li class="{{request() -> url() == route("all_products") ? "active" : ""}}"><a class="menu-item" href="{{route("all_products")}}"
+                                          data-i18n="nav.dash.ecommerce">عرض المنتجات </a>
+                    </li>
+                    <li class="{{request() -> url() == route("add_products") ? "active" : ""}}"><a class="menu-item" href="{{route("add_products")}}" data-i18n="nav.dash.crypto">أضافة
+                     منتج جديد</a>
                     </li>
                 </ul>
             </li>

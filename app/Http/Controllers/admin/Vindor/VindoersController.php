@@ -46,21 +46,36 @@ class VindoersController extends Controller
     public function store(vindoer_validation $request)
     {
         try {
-            $photo = uploud_img($request -> photo , "public/asset/admin/images/vindoer_image/" );
+            $img = uploud_img($request -> shop_img , "public/asset/admin/images/vindoer_image");
+            $file = uploud_img($request -> Commercial_Register , "public/asset/admin/files/vindoers_files/" );
+            $is_admin = "";
+            if(request() -> url() == route("store_vindoer")) {
+                    $created_id = auth() -> guard("admins") -> user() -> id;
+                } else if(request() -> url() == route("store_vindoer_from_user_regist")) {
+                    $created_id = "0";
+                }
             $vindoer = vindoers_model::create([
                 "name" => filter_var($request -> name , FILTER_SANITIZE_STRING),
+                "shop_name" => filter_var($request -> shop_name , FILTER_SANITIZE_STRING),
                 "email" => filter_var($request -> email , FILTER_SANITIZE_EMAIL),
                 "password" => bcrypt(filter_var($request -> password , FILTER_SANITIZE_STRING)),
                 "age" => filter_var($request -> age , FILTER_SANITIZE_NUMBER_INT),
                 "addres" => filter_var($request -> addres , FILTER_SANITIZE_STRING),
-                "photo" => $photo,
-                "catigory_id" => filter_var($request -> catigory , FILTER_SANITIZE_NUMBER_INT),
+                "Commercial_Register" => $file,
+                "shop_img" => $img,
+                "created_id" => $created_id,
                 "mobil" => filter_var($request -> mobil , FILTER_SANITIZE_NUMBER_INT),
                 "active" => $request -> has("active") ? '1' : "0",
             ]);
             Notification::send($vindoer , new vindowers($vindoer));
-            return errorMassage("تم اضافه تاجر جديد" , "success");
+            if(auth() -> guard("admins") -> check()) {
+                $message = " تم تسجيلك كتاجر جديد انتظر حتي يتم الموافقه عليك";
+            } else if(auth() -> guard("web") -> check() && !auth() -> guard("admins") -> check()) {
+                $message = "تم تسجيل الحساب بنجاح وتم انشاء متجرك انظر حتي يتم تفعيل المتجر من عند الادمن";
+            }
+            return errorMassage($message , "success");
         } catch(\Exception $ex) {
+            return $ex;
             return errorMassage("", "danger");
         }
     }
@@ -117,18 +132,26 @@ class VindoersController extends Controller
                 return redirect()->route("all_vindoer")->with(["message" => "هذا العنصر غير موجود", "type" => "danger"]);
             }
             $data=  $request -> except("_token" , "id" , "password" , "password2" , "hidden_photo");
-            if($request -> has("photo")) {
+            if($request -> has("shop_img")) {
                 deletePhoto($request -> hidden_photo , asset("public/asset/admin/images/vindoer_image/"));
-                $photo = uploud_img($request -> photo , "public/asset/admin/images/vindoer_image/");
+                $photo = uploud_img($request -> shop_img , "public/asset/admin/images/vindoer_image/");
             } else {
                 $photo = $request -> hidden_photo;
             }
+            if($request -> has("Commercial_Register")) {
+                deletePhoto($request -> hidden_Commercial_Register , asset("public\asset\admin\\files\\vindoers_files"));
+                $Commercial_Register = uploud_img($request -> Commercial_Register , "public\asset\admin\\files\\vindoers_files");
+            } else {
+                $Commercial_Register = $request -> hidden_Commercial_Register;
+            }
             $password = $request -> has("password") ? bcrypt($request -> password) : bcrypt($request -> password2);
             $data ["password"] = $password;
-            $data ["photo"] = $photo;
+            $data ["shop_img"] = $photo;
+            $data ["Commercial_Register"] = $Commercial_Register;
         vindoers_model::find($id)->update($data);
         return errorMassage("تم تعديل بيانات التاجر " , "success");
         } catch (\Throwable $th) {
+            return $th;
             return errorMassage("" , "danger");
         }
     }

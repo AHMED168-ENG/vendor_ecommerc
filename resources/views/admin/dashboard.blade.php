@@ -75,6 +75,8 @@
 
 @include("admin/inclued/footer")
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 <!-- BEGIN VENDOR JS-->
 <script src="{{asset('public/asset/admin/vendors/js/vendors.min.js')}}" type="text/javascript"></script>
 <!-- BEGIN VENDOR JS-->
@@ -119,7 +121,6 @@
 <script src="{{asset('public/asset/admin/js/scripts/forms/checkbox-radio.js')}}" type="text/javascript"></script>
 
 <script src="{{asset('public/asset/admin/js/scripts/modal/components-modal.js')}}" type="text/javascript"></script>
-
 <script>
     $('#meridians1').timeDropper({
         meridians: true,

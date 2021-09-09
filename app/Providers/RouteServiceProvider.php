@@ -23,6 +23,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/web_sit/home';
     public const dashpored = 'admin/dashpored';
+    public const vindoers_main = 'web_sit/vindoer/all_product_vindoer';
 
     /**
      * Define your route model bindings, pattern filters, etc.

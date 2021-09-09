@@ -18,6 +18,8 @@ class Authenticate extends Middleware
         if (! $request->expectsJson()) {
             if($request->is("admin/*")) {
                 return route("show_admin");
+            } else if($request->is("web_sit/vindoer/*")) {
+                return route("login_vindoer");
             } else {
                 return route("login");
             }

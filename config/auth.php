@@ -45,6 +45,11 @@ return [
             'provider' => 'users_admin',
             'table' => "users_admin",
         ],
+        'vindoers' => [
+            'driver' => 'session',
+            'provider' => 'vindoers_models',
+            'table' => "vindoers_models",
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -80,6 +85,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\models\Admin_user::class,
         ],
+        'vindoers_models' => [
+            'driver' => 'eloquent',
+            'model' => App\models\vindoers\vindoers_model::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -111,6 +120,12 @@ return [
         ],
         'users_admin' => [
             'provider' => 'users_admin',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'vindoers_models' => [
+            'provider' => 'vindoers_models',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

@@ -54,6 +54,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'if_acount_active' => \App\Http\Middleware\if_acount_active::class,
+        'check_vindoer_active_or_no' => \App\Http\Middleware\vindoer\check_vindoer_active_or_no::class,
         'admin_validate' => \App\Http\Middleware\admin_validate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,

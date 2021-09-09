@@ -42,10 +42,10 @@ class vindowers extends Notification
      */
     public function toMail($notifiable)
     {
+        $name = $this -> vindoer -> name;
         return (new MailMessage)
                     ->subject("لقد تم انشاء حسابكم في موقع الذكي")
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->line("اهلا بك يا $name في موقعنا المتواضع يجب عليك ان تقوم بالضغط علي الزرار لتفعيل الحساب")
                     ->line('Thank you for using our application!');
     }
 

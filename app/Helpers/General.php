@@ -1,4 +1,6 @@
 <?php
+
+use App\models\main_catigory\catigors_models;
 use Illuminate\Support\Str;
 
 function show_active_language() {
@@ -23,6 +25,17 @@ function save_language($folder , $imges) {
 
 /* ------------------------- start update photo ---------------------------*/
 function uploud_img($img , $path) {
+    if(is_array($img)) {
+        $filesName = "";
+    foreach ($img as $key => $value) {
+        $file_extension = $value -> getClientOriginalExtension();
+        $fileName = rand(10000000,90000000) . "." . $file_extension;
+        $path = $path;
+        $value -> move($path , $fileName);
+        $filesName .= ($fileName . "__");
+    }
+    return $filesName;
+    }
     /*---------------------------- الخطوه الاولي اجيب نوع الصوره سواء كانت jpeg , jpg .. ---------------*/
     $file_extension = $img -> getClientOriginalExtension();
     /*---------------------------- الخطوه الاولي اجيب نوع الصوره سواء كانت jpeg , jpg .. ---------------*/
@@ -47,7 +60,17 @@ function errorMassage($message , $type) {
 
 /* -------------------------------------------- delete photo after edit ---------------------------------*/
 function deletePhoto($photoName, $path) {
-    unlink(base_path("public/".Str::after($path . "/", 'public/')) . $photoName);
+    if(str_contains($photoName , "__")) {
+        $photos = explode("__" , $photoName);
+        foreach ($photos as $key => $value) {
+            if($value != "") {
+                unlink(base_path("public/".Str::after($path . "/", 'public/')) . $value);
+            }
+        }
+    } else {
+        unlink(base_path("public/".Str::after($path . "/", 'public/')) . $photoName);
+
+    }
 }
 /* -------------------------------------------- delete photo after edit ---------------------------------*/
 
@@ -63,3 +86,24 @@ function getAllLanguageOfCatigory($model, $id) {
     return $allLanguage;
 }
 /* -------------------------------------------- delete photo after edit ---------------------------------*/
+
+/* -------------------------------------------- get catigory name from supcatigory ---------------------------------*/
+function get_catigory_name_from_supcatigory($supCat) {
+    $GLOBALS["path"] = "";
+    $test = true;
+    $id = $supCat;
+    for ($i = 0 ; $test != false ; $i++) {
+        $catigory = catigors_models::find($id) -> main_catigory_id;
+        if($catigory != 0) {
+            $GLOBALS["path"] .= catigors_models::find($id) -> name . "---";
+            $id = $catigory;
+        } else {
+            $GLOBALS["path"] .= catigors_models::find($id) -> name;
+            $test = false;
+            return $GLOBALS["path"];
+        }
+    }
+
+
+}
+/* -------------------------------------------- get catigory name from supcatigory ---------------------------------*/

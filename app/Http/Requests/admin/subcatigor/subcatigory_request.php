@@ -34,7 +34,7 @@ class subcatigory_request extends FormRequest
         return
             [
                 "subcatigory.*.description" => "required|min:10|max:400|string",
-                "subcatigory.*.main_catigory_id" => "required|numeric",
+                "subcatigory.*.main_catigory_id.0" => "required_without:hidden_photo",
                 "subcatigory.*.active" => "in:0,1",
                 "photo" => "mimes:png,jpg,jpeg,gif,svg|file|between:0,10000|required_without:hidden_photo",
                 "subcatigory.*.name" => ["required","min:3","max:40","string",Rule::unique("main_catigories" ,
@@ -59,8 +59,7 @@ class subcatigory_request extends FormRequest
             "photo.string" => "هذه الصوره يجب ان تكون نصا",
             "photo.mimes" => "امتداد الصوره يجب ان يكون في نطاق [jpg , png , jpeg , svg , gif]",
             "photo.between" => "يجب ان يكون مساحه الصوره صغيره",
-            "subcatigory.*.main_catigory_id.required" => "القسم مطلوب",
-            "subcatigory.*.main_catigory_id.numeric" => "القسم يجب ان يكون نصي",
+            "subcatigory.*.main_catigory_id.0.required_without" => "القسم مطلوب",
             "subcatigory.*.active.in" => "هذا الحقل يجب ان يكون بين 0 , 1",
         ];
     }

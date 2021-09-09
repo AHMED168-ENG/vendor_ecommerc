@@ -1,7 +1,7 @@
 
 <div class="section-search">
     <div class="container">
-        <div class="row">
+        <div class="row"  style="align-items:center !important">
             <div class="col-md-8">
                 <div class="right mt-3">
                     <form action="" method="">
@@ -29,43 +29,55 @@
             </div>
             <div class="col-md-4">
                 <div class="left mb-3 mt-3">
-                    <ul class="list-inline">
-
-                        <li class="list-inline-item" style="position: relative;">
-                            <div class="dropdown">
-                                  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-fw fa-user primary-i"></i>
-                                    حسابى
-                                  </button>
-                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-                                    <p class="dropdown-item user-aria">
-                                        <img class="float-left" src="{{asset("public/asset/frontEnd/img/user.svg")}}" width="49" height="49" />
-                                        <span class="float-left ml-2">
-                                            عبدالرحمن محمد
-                                            <br />
-                                            info@gmail.com
-                                        </span>
-                                    </p>
-
-                                    <a class="dropdown-item" href="#"><i class="fa fa-user"></i> اعدادات</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-fw fa-shopping-bag"></i> طلباتي</a>
-                                    <a class="dropdown-item" href="#"><i class="far fa-fw fa-heart"></i> قائمة الرغبات</a>
-                                    <a class="dropdown-item" href="#"><i class="far fa-fw fa-envelope"></i> اتصل بنا</a>
-                                    <a class="dropdown-item noti" href="#"><i class="far fa-fw fa-bell"></i> إشعارات <span>80</span></a>
-
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                        <button class="dropdown-item" href="{{route("logout")}}"><i class="fas fa-fw fa-sign-out-alt"></i> تسجيل خروج</button>
-                                    </form>
-                                  </div>
-                            </div>
-                        </li>
+                    <ul class="list-inline list-unstyled d-flex" style=" @if (!Auth::check())justify-content:space-between @endif ;align-items:center">
 
                         <li class="list-inline-item">
                             <span id="btn-cart"><i class="fas fa-fw fa-shopping-cart primary-i"></i> عربة التسوق</span>
                         </li>
+                        @if (Auth::check())
+
+                            <li class="list-inline-item" style="position: relative;">
+                                <div class="dropdown">
+                                      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-fw fa-user primary-i"></i>
+                                        حسابى
+                                      </button>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                        <p class="dropdown-item user-aria">
+                                            <img class="float-left" src="{{asset("public/asset/frontEnd/img/user.svg")}}" width="49" height="49" />
+                                            <span class="float-left ml-2">
+                                                عبدالرحمن محمد
+                                                <br />
+                                                info@gmail.com
+                                            </span>
+                                        </p>
+
+                                        <a class="dropdown-item" href="#"><i class="fa fa-user"></i> اعدادات</a>
+                                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-shopping-bag"></i> طلباتي</a>
+                                        <a class="dropdown-item" href="#"><i class="far fa-fw fa-heart"></i> قائمة الرغبات</a>
+                                        <a class="dropdown-item" href="#"><i class="far fa-fw fa-envelope"></i> اتصل بنا</a>
+                                        <a class="dropdown-item noti" href="#"><i class="far fa-fw fa-bell"></i> إشعارات <span>80</span></a>
+
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <button class="dropdown-item" href="{{route("logout")}}"><i class="fas fa-fw fa-sign-out-alt"></i> تسجيل خروج</button>
+                                        </form>
+                                      </div>
+                                </div>
+                            </li>
+                         @else
+                            <ul class="regist_login list-unstyled list-inline-item">
+                                <li class="list-inline-item">
+                                    <a class="{{route("login") == request() -> url() ? "active" : ""}}" href="{{route("login")}}">تسجيل دخول </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="{{route("register") == request() -> url() ? "active" : ""}}" href="{{route("register")}}">تسجيل </a>
+                                </li>
+                            </ul>
+                        @endif
+
                     </ul>
                 </div>
             </div>
@@ -242,4 +254,19 @@
                     </div>
                  </div>
             </div>
+
+            <style>
+                .regist_login li a {
+                    color:white;
+                    border:1px solid white;
+                    border-radius: 4px;
+                    padding:7px 16px;
+                    text-transform: capitalize
+                }
+                .regist_login li a.active , .regist_login li a:hover {
+                    color:#009aff;
+                    border-color:#009aff
+                }
+
+            </style>
             <!-- End Section Cart -->

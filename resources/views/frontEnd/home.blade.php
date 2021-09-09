@@ -1,4 +1,4 @@
-@extends('.frontEnd/index')
+@extends('frontEnd/index')
 
 @section("title")
 <title>home page</title>
@@ -9,6 +9,20 @@
             <!-- Start Section Slider -->
             <div id="slider-home" class="carousel slide p-3" data-ride="carousel">
                 <div class="container">
+                    @if (session() -> has("message"))
+
+                      <div class="toasts" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed;z-index:50;top:50%;background:white;box-shadow:4px 4px 12px rgba(0,0,0,0.2);transform:translateY(-50%);left:0;height:100px ; width:250px" >
+                        <div class="toast-header d-block">
+                          <small class="text-muted">4 seconds ago</small>
+                          <button onClick="clicking()" type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="toast-body">
+                          {{session("message")}}
+                        </div>
+                      </div>
+                    @endif
                     <div class="carousel-inner">
 
                         <div class="carousel-item active">
@@ -346,6 +360,14 @@
 
             @section("script")
             <script>
+                window.onload = function() {
+                    setTimeout(function() {
+                    document.querySelector(".toasts").remove();
+                },4000)
+                }
+                function clicking() {
+                    document.querySelector(".toasts").remove();
+                }
                 $(document).on('ready', function() {
 
                     $('.center').slick({
@@ -375,6 +397,7 @@
                       ]
                     });
                 });
+
             </script>
             @endsection
 @endsection

@@ -95,6 +95,8 @@ a,a:hover,.btn:hover {
 	color: #FFF;
     box-shadow:unset;
 }
+
+
 .section-search .left .user-aria {
 	min-width: 250px;
 	overflow: hidden;
@@ -746,7 +748,7 @@ footer .f-social li:hover {
 .pass_show{position: relative}
 .pass_show .ptxt {
     position: absolute;
-    top: 70%;
+    top: 50px;
     left: 10px;
     z-index: 1;
 	color: #f36c01;
