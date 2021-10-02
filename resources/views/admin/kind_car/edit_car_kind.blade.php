@@ -132,37 +132,55 @@ edit kind of car
                                                         </div>
                                                     @endforeach
 
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="car_photo">صوره السياره</label>
-                                                <input type="file" id="car_photo"
-                                                class="form-control"
-                                                placeholder="ادخل صوره السياره"
-                                                name="car_photo">
-                                                @error("car_photo")
-                                                    <span class="text-danger"> {{$message}}</span>
-                                                @enderror
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="car_photo">صوره السياره</label>
+                                                    <input type="file" id="car_photo"
+                                                    class="form-control"
+                                                    placeholder="ادخل صوره السياره"
+                                                    name="car_photo">
+                                                    @error("car_photo")
+                                                        <span class="text-danger"> {{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <div>
+                                                        <img style="width:50%;height:80px" src="{{asset("public/asset/admin/images/products_image/car_photo") . "/" . $car_kind -> car_photo }}" alt="">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <input type="hidden" name="car_photo_old" value="{{$car_kind -> car_photo}}">
 
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="car_logo_photo">لوجو شركه السياره</label>
-                                                <input type="file" id="car_logo_photo"
-                                                class="form-control"
-                                                placeholder="ادخل صوره السياره"
-                                                name="car_logo_photo">
-                                                @error("car_logo_photo")
-                                                    <span class="text-danger"> {{$message}}</span>
-                                                @enderror
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="car_logo_photo">لوجو شركه السياره</label>
+                                                    <input type="file" id="car_logo_photo"
+                                                    class="form-control"
+                                                    placeholder="ادخل صوره السياره"
+                                                    name="car_logo_photo">
+                                                    @error("car_logo_photo")
+                                                        <span class="text-danger"> {{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <div>
+                                                        <img style="width:50%;height:80px" src="{{asset("public/asset/admin/images/products_image/car_logo_photo") . "/" . $car_kind -> car_logo_photo }}" alt="">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <input type="hidden" name="car_logo_photo_old" value="{{$car_kind -> car_logo_photo}}">
 
                                     </div>
 
-                                                @endif
+                                    @endif
 
                                         <div class="form-actions">
                                             <button type="button" class="btn btn-warning mr-1"

@@ -113,6 +113,36 @@
                 </ul>
             </li>
 
+            <li class="nav-item"><a href=""><i class="la la-male"></i>
+                <span class="menu-title" data-i18n="nav.dash.main">الاسليدرس</span>
+                <span
+                    class="badge badge badge-warning  badge-pill float-right mr-2">{{App\models\sliders\slider_model::Active()->DefaultLanguage()->count()}}</span>
+            </a>
+                <ul class="menu-content">
+                    <li class="{{request() -> url() == route("all_sliders") ? "active" : ""}}"><a class="menu-item" href="{{route("all_sliders")}}"
+                                          data-i18n="nav.dash.ecommerce">عرض الاسليدرس </a>
+                    </li>
+                    <li class="{{request() -> url() == route("add_sliders") ? "active" : ""}}"><a class="menu-item" href="{{route("add_sliders")}}" data-i18n="nav.dash.crypto">أضافة
+                        اسليدرس جديد</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item"><a href=""><i class="la la-male"></i>
+                <span class="menu-title" data-i18n="nav.dash.main">الكومنتات</span>
+                <span
+                    class="badge badge badge-warning  badge-pill float-right mr-2">{{App\models\product_comment\product_comment_model::Active()->count()}}</span>
+            </a>
+                <ul class="menu-content">
+                    <li class="{{request() -> url() == route("all_comments") ? "active" : ""}}"><a class="menu-item" href="{{route("all_comments")}}"
+                                          data-i18n="nav.dash.ecommerce">عرض جميع الكومنتات </a>
+                    </li>
+                    <li class="{{request() -> url() == route("add_comments") ? "active" : ""}}"><a class="menu-item" href="{{route("add_comments")}}" data-i18n="nav.dash.crypto">أضافة
+                        كومنت جديد</a>
+                    </li>
+                </ul>
+            </li>
+
 
             <li class="nav-item">
                 <a href=""><i class="la la-male"></i>

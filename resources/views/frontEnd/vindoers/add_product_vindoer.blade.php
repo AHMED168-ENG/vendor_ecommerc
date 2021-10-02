@@ -107,7 +107,7 @@ add product
                                                 <div class="col-md-6 models">
                                                     <div class="form-group">
                                                         <label for="products"> موديل المنتج </label>
-                                                        <select name="products[{{$i}}][model_cars]"  class="select2 form-control">
+                                                        <select multiple name="products[{{$i}}][model_cars][]"  class="select2 form-control">
                                                             <optgroup label="اختر موديل المنتج">
                                                                 <option value=""></option>
                                                                 @foreach ($cars_model as $item)
@@ -152,7 +152,7 @@ add product
 
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="price">  السعر</label>
+                                                                <label for="price"> السعر بالريال</label>
                                                                 <input type="number" id="price"
                                                                 class="form-control"
                                                                 placeholder="ادخل السعر المنتج"
@@ -161,6 +161,18 @@ add product
                                                                 @error("products.$i.price")
                                                                 <span class="text-danger"> {{$message}}</span>
                                                                 @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="descount"> الخصم اذا اردت</label>
+                                                                <input type="number" id="descount"
+                                                                class="form-control"
+                                                                value = "{{old("products.$i.descount")}}"
+                                                                placeholder="ادخل خصم المنتج اذا اردت "
+                                                                value = "{{old("products.$i.descount")}}"
+                                                                name="products[{{$i}}][descount]">
                                                             </div>
                                                         </div>
 
@@ -195,7 +207,7 @@ add product
 
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="security">  الضمان</label>
+                                                                <label for="security">  الضمان بالشهر</label>
                                                                 <input type="number" id="security"
                                                                 class="form-control"
                                                                 placeholder="ادخل الضمان"

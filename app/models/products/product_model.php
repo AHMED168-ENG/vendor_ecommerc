@@ -35,5 +35,19 @@ class product_model extends Model
     {
         return $this -> belongsTo("App\models\kind_of_car\kind_of_car_model" , "kind_car");
     }
+
     /*  -------------------------------------relation 5 --------------------------------------------*/
+
+/*--------------------------------- start relation with product table -------------------------------------------*/
+public function get_vindoer() {
+    return $this -> belongsTo("App\models\\vindoers\\vindoers_model" , "created_id");
+}
+/*--------------------------------- start relation with product table -------------------------------------------*/
+
+
+/* ----------------------------- start relation1 between comment and product -----------------------------*/
+public function get_comment() {
+    return $this -> hasMany("App\models\product_comment\product_comment_model" , "product_id");
+}
+/* ----------------------------- start relation1 between comment and product -----------------------------*/
 }

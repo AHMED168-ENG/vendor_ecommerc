@@ -11,6 +11,7 @@ class kind_of_car_model extends Model
     protected $table = "kind_of_car_models";
 
 
+
     public function scopeCar_kind_active($query) {
         return $query -> where("active" , "1");
     }

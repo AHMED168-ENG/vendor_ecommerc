@@ -51,8 +51,10 @@ class VindoersController extends Controller
             $is_admin = "";
             if(request() -> url() == route("store_vindoer")) {
                     $created_id = auth() -> guard("admins") -> user() -> id;
+                    $message = "تم تسجيل تاجر جديد هنا";
                 } else if(request() -> url() == route("store_vindoer_from_user_regist")) {
                     $created_id = "0";
+                    $message = "تم تسجيل الحساب بنجاح وتم انشاء متجرك انظر حتي يتم تفعيل المتجر من عند الادمن";
                 }
             $vindoer = vindoers_model::create([
                 "name" => filter_var($request -> name , FILTER_SANITIZE_STRING),
@@ -68,14 +70,8 @@ class VindoersController extends Controller
                 "active" => $request -> has("active") ? '1' : "0",
             ]);
             Notification::send($vindoer , new vindowers($vindoer));
-            if(auth() -> guard("admins") -> check()) {
-                $message = " تم تسجيلك كتاجر جديد انتظر حتي يتم الموافقه عليك";
-            } else if(auth() -> guard("web") -> check() && !auth() -> guard("admins") -> check()) {
-                $message = "تم تسجيل الحساب بنجاح وتم انشاء متجرك انظر حتي يتم تفعيل المتجر من عند الادمن";
-            }
             return errorMassage($message , "success");
         } catch(\Exception $ex) {
-            return $ex;
             return errorMassage("", "danger");
         }
     }

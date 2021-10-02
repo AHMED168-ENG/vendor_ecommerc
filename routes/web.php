@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\web_sit\home\websit_pages_controller;
 use App\Http\Requests\admin\language\Validat_language;
 use App\models\Admin_user;
 use App\models\cars_model\cars_model;
@@ -101,7 +102,7 @@ Route::group(["prefix" => "subCatigory","namespace" => "subCatigory"] , function
     Route::post("edit_subCatigory/{id?}" , "subCatigory_controller@update");
     Route::get("active_vindoer/{id?}" , "subCatigory_controller@active")->name("active_vindoer");
     Route::get("delete_vindoer/{id?}" , "subCatigory_controller@destroy")->name("delete_vindoer");
-    Route::post("ajax_Get_supcatigory/{id?}" , "subCatigory_controller@ajax_Get_supcatigory")->name("ajax_Get_supcatigory");
+    Route::post("ajax_Get_supcatigory/{id?}" , "subCatigory_controller@ajax_Get_supcatigory")->name("ajax_Get_supcatigory1");
 
 });
 /* --------------------------    sup catigory pages   ------------------------------ */
@@ -133,6 +134,32 @@ Route::group(["prefix" => "cars_models","namespace" => "cars_models"] , function
 });
 /* --------------------------   kind_car pages   ------------------------------ */
 
+/* --------------------------   sliders pages   ------------------------------ */
+Route::group(["prefix" => "sliders","namespace" => "sliders"] , function() {
+    Route::get("all_sliders" , "slider_controller@index")->name("all_sliders");
+    Route::get("add_sliders" , "slider_controller@create")->name("add_sliders");
+    Route::post("add_sliders" , "slider_controller@store");
+    Route::get("edit_sliders/{id?}" , "slider_controller@edit")->name("edit_sliders");
+    Route::post("edit_sliders/{id?}" , "slider_controller@update");
+    Route::get("active_sliders/{id?}" , "slider_controller@active")->name("active_sliders");
+    Route::get("delete_sliders/{id?}" , "slider_controller@destroy")->name("delete_sliders");
+
+});
+/* --------------------------   sliders pages   ------------------------------ */
+
+/* --------------------------   comments pages   ------------------------------ */
+Route::group(["prefix" => "comments","namespace" => "comments"] , function() {
+    Route::get("all_comments" , "comments_controller@index")->name("all_comments");
+    Route::get("add_comments" , "comments_controller@create")->name("add_comments");
+    Route::post("add_comments" , "comments_controller@store")->name("store_comment_admin");
+    Route::get("edit_comments/{id?}" , "comments_controller@edit")->name("edit_comments");
+    Route::post("edit_comments/{id?}" , "comments_controller@update");
+    Route::get("active_comments/{id?}" , "comments_controller@active")->name("active_comments");
+    Route::get("delete_comments/{id?}" , "comments_controller@destroy")->name("delete_comments");
+
+});
+/* --------------------------   comments pages   ------------------------------ */
+
 /* --------------------------   products pages   ------------------------------ */
 Route::group(["prefix" => "product","namespace" => "product"] , function() {
     Route::get("all_products" , "product_controller@index")->name("all_products");
@@ -140,6 +167,7 @@ Route::group(["prefix" => "product","namespace" => "product"] , function() {
 
     Route::get("active_product/{id?}" , "product_controller@active")->name("active_product");
     Route::get("delete_product/{id?}" , "product_controller@destroy")->name("delete_product");
+    Route::post("ajax_Get_supcatigory/{id?}" , "product_controller@ajax_Get_supcatigory")->name("ajax_Get_supcatigory1");
 
 });
 /* --------------------------   products pages   ------------------------------ */
@@ -168,7 +196,7 @@ Route::group(["prifex" => "vindoer_create_product_without_authonticat"] , functi
 });
 
 Route::group(["namespace" => "web_sit" , "prefix" => "web_sit"] , function() {
-Route::get("/home" , "HomeController@index")->name("home");
+Route::get("/home" , "home\\websit_pages_controller@index")->name("home");
 Route::group(["middleware" => "auth"] , function() {
     Route::get("/activ_acount_notification" , "HomeController@activ_acount_notification")->name("activ_acount_notification");
     Route::get("/active/{id}" , "HomeController@active_acount")->name("active");
@@ -188,10 +216,29 @@ Route::group(["namespace" => "vindoer" , "prefix" => "vindoer" , "middleware" =>
     Route::get("/all_product_vindoer" , "vindoer_controller@all_product_vindoer")->name("all_product_vindoer");
     Route::get("/add_product_vindoer/{id?}" , "vindoer_controller@create")->name("add_product_vindoer");
     Route::get("/edit_product_vindoer/{id?}" , "vindoer_controller@edit")->name("edit_product_vindoer");
+    Route::post("/logout_vindoers" , "vindoer_controller@logout")->name("logout_vindoers");
     Route::get("/vindoers_siting" , "vindoer_controller@show_siting")->name("vindoers_siting");
     Route::get("/financial_transactions/{id?}" , "vindoer_controller@show_financial_transactions")->name("show_financial_transactions");
     Route::get("/all_my_product" , "vindoer_controller@all_my_product")->name("all_my_product");
-    Route::post("logout_vindoers" , "vindoer_controller@logout")->name("logout_vindoers");
+    Route::get("/all_my_mark_vindoer" , "vindoer_controller@all_my_mark_vindoer")->name("all_my_mark_vindoer");
+});
+
+Route::group(["prefix" => "home" , "namespace" => "home" , "middleware" => "auth"] , function() {
+
+    Route::get("/all_product_home" , "websit_pages_controller@all_product_home")->name("all_product_home");
+    Route::get("/all_product" , "websit_pages_controller@all_product_on_websit")->name("all_product");
+    Route::get("/all_cars_mark" , "websit_pages_controller@all_cars_mark")->name("all_cars_mark");
+    Route::get("/product_details/{id?}" , "websit_pages_controller@product_details")->name("product_details");
+    Route::post("add_comments" , "websit_pages_controller@ajax_add_comment")->name("store_comment_user");
+
+});
+Route::group(["prefix" => "user_siting" , "namespace" => "user_siting" , "middleware" => "auth"] , function() {
+    /* ----------------- start user siting ------------------*/
+    Route::get("/user_seting" , "user_siting@user_seting")->name("show_user_seting");
+    Route::post("/update_user_seting/{id?}" , "user_siting@update_user_seting")->name("update_user_seting");
+    Route::post("/update_password/{id?}" , "user_siting@update_password")->name("update_password");
+    /* ----------------- start user siting ------------------*/
+
 });
 
 
@@ -204,7 +251,6 @@ Route::group(["namespace" => "vindoer" , "prefix" => "vindoer" , "middleware" =>
 
 
 Route::get("ts" , function() {
-    return catigors_models::find(44)->get_supcatigory->where("id" , "!=" , 48);
 })->name("ts");
 
 

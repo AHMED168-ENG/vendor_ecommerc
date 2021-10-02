@@ -71,8 +71,8 @@ class subCatigory_controller extends Controller
             $subcatigory_normal = array_values($subcatigory_normal->all());
             $arr = [];
             foreach ($subcatigory_normal as $key => $val) {
-                $count_sup_cat = count($request->subcatigory[$key]["main_catigory_id"]) - 1;
-                $sup = $request -> subcatigory[$key]["main_catigory_id"];
+                $count_sup_cat = count($val["main_catigory_id"]) - 1;
+                $sup = $val["main_catigory_id"];
                 $arr[] = [
                     "name" => $val["name"],
                     "shourtcut" => $val["shourtcut"],
@@ -144,8 +144,8 @@ class subCatigory_controller extends Controller
                 $photo = uploud_img($request -> photo , "public/asset/admin/images/subCatigory_photo");
             }
             foreach ($request -> subcatigory as $key => $value) {
-                $count_sup_cat = count($request->subcatigory[$key]["main_catigory_id"]);
-                $sup = $request -> subcatigory[$key]["main_catigory_id"];
+                $count_sup_cat = count($value["main_catigory_id"]);
+                $sup = $value["main_catigory_id"];
                 catigors_models::find($value["id"]) -> update([
                     "name" => filter_var($value["name"] , FILTER_SANITIZE_STRING),
                     "description" => filter_var($value["description"] , FILTER_SANITIZE_STRING),

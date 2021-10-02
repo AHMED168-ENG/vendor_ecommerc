@@ -4,6 +4,9 @@
         <!-- ////////////////////////// sign in ////////////////////////// -->
         <div class="signin">
             <div class="container">
+                @if (session() -> has("message"))
+                    <div class="alert alert-{{session("type")}}">{{session("message")}}</div>
+                @endif
                 <div class="row">
 
                     <div class="col-md-6">

@@ -17,6 +17,7 @@ class CreateProductModelsTable extends Migration
             $table->id();
             $table -> string("name" , 255)->collation("utf8_general_ci");
             $table -> integer("price");
+            $table -> integer("descount") -> default(0);
             $table -> integer("catigory");
             $table -> string("kind_car" , 255)->collation("utf8_general_ci");
             $table -> string("model_car" , 255)->collation("utf8_general_ci");

@@ -51,5 +51,10 @@ class User extends Authenticatable
     }
     /*  -------------------------------------الربط بين observer والجول --------------------------------------------*/
 
+        /* ----------------------------- start relation2 between comment and sender -----------------------------*/
+        public function get_comment() {
+            return $this -> hasMany("App\models\product_comment\product_comment_model" , "sender");
+        }
+        /* ----------------------------- start relation2 between comment and sender -----------------------------*/
 }
 

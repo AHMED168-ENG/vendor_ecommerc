@@ -59,6 +59,9 @@
         body {
             font-family: 'Cairo', sans-serif;
         }
+        input , .select2-selection , textarea {
+            background:#eee !important
+        }
     </style>
 </head>
 <body class="vertical-layout vertical-menu 2-columns  @if(Request::is('admin/users/tickets/reply*')) chat-application @endif menu-expanded fixed-navbar"

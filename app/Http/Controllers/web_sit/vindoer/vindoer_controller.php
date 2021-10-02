@@ -40,9 +40,9 @@ class vindoer_controller extends Controller
         try {
             $rmemper_me = isset($request -> rememper_me) ? true : false;
             if(auth()->guard('vindoers') ->attempt(["mobil" => $request -> phone , "password" => $request -> password] , $rmemper_me)) {
-                return route("login");
+                return redirect()-> route("all_product_vindoer");
             } else {
-                return route("login");
+                return redirect()->route("login_vindoer") -> with(["message" => "هناك خطا في البيانات", "type" => "danger"]);
             }
         } catch (\Throwable $th) {
             return errorMassage("" , "danger");
@@ -54,14 +54,44 @@ class vindoer_controller extends Controller
     public function all_product_vindoer()
     {
         try {
-            $product_vindoer = product_model::where([["created_id" , "=" , auth() -> guard("vindoers") -> user() ->id ] , ["shourtcut" , "=" , git_default_language()]])->with(["get_kind_car" => function($query) {
-                return $query -> select("car_logo_photo" , "id");
-            }])->limit(12);
+            $product_vindoer = product_model::where([["created_id" , "=" , auth() -> guard("vindoers") -> user() ->id ]])-> Product_Default_lange() -> Active()->limit(12);
+            $all_cars_mark = [];
+            foreach ($product_vindoer -> get() as $key => $value) {
+                foreach (explode("___" , $value["kind_car"]) as $key => $value) {
+                    $all_cars_mark[] = $value;
+                }
+            }
+            $GLOBALS["all_cars_mark"] = array_unique($all_cars_mark);
+            $GLOBALS["all_cars_mark"] = $all_cars_mark;
+            $all_cars_mark =  kind_of_car_model::where(function($query) {
+                return  $query -> whereIn("id" , $GLOBALS["all_cars_mark"]);
+            })->paginate(bagination_count);
 
-            $kind_car_logo_img = collect($product_vindoer-> get())->unique("kind_car");
             $product_vindoer_catigory = collect($product_vindoer-> get())->unique("catigory");
             $product_vindoer = $product_vindoer -> orderBy("id" , "desc")->get();
-            return view("frontEnd/vindoers/main_page_vindoer" , compact("kind_car_logo_img" , "product_vindoer" , "product_vindoer_catigory"));
+            return view("frontEnd/vindoers/main_page_vindoer" , compact("product_vindoer" , "product_vindoer_catigory" , "all_cars_mark"));
+        } catch (\Throwable $th) {
+            return $th;
+            return errorMassage("" , "danger");
+        }
+    }
+
+
+    public function all_my_mark_vindoer() {
+        try {
+            $product_vindoer = product_model::where([["created_id" , "=" , auth() -> guard("vindoers") -> user() ->id ]]) -> Product_Default_lange() -> Active() -> get();
+            $all_cars_mark = [];
+            foreach ($product_vindoer  as $key => $value) {
+                foreach (explode("___" , $value["kind_car"]) as $key => $value) {
+                    $all_cars_mark[] = $value;
+                }
+            }
+            $GLOBALS["all_cars_mark"] = array_unique($all_cars_mark);
+            $GLOBALS["all_cars_mark"] = $all_cars_mark;
+            $all_cars_mark =  kind_of_car_model::where(function($query) {
+                return  $query -> whereIn("id" , $GLOBALS["all_cars_mark"]);
+            })->paginate(bagination_count);
+            return view("frontEnd/vindoers/all_my_mark_vindoer" , compact("all_cars_mark"));
         } catch (\Throwable $th) {
             return $th;
             return errorMassage("" , "danger");
@@ -86,7 +116,7 @@ class vindoer_controller extends Controller
 
     public function all_my_product() {
         try {
-            $all_my_product = product_model::Active()->where("created_id" , auth() -> guard("vindoers") -> user()->id)->paginate(bagination_count);
+            $all_my_product = product_model::Active()->Product_Default_lange()->where("created_id" , auth() -> guard("vindoers") -> user()->id)->paginate(bagination_count);
             return view("frontEnd/vindoers/all_my_product" , compact("all_my_product"));
         } catch (\Throwable $th) {
             return errorMassage("" , "danger");
@@ -114,7 +144,7 @@ class vindoer_controller extends Controller
     {
         try {
             auth()->guard("vindoers")->logout();
-            return route("login_vindoer");
+            return redirect()->route("login_vindoer");
         }
             catch (\Throwable $th) {
 

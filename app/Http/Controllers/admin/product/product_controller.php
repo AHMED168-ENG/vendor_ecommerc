@@ -80,14 +80,16 @@ class product_controller extends Controller
             $catigory = $default_lang_product[0]["main_catigory_id"] ;
             $catigory = end($catigory) == null ? $catigory[$count_catigory - 2] : $catigory[$count_catigory - 1];
             $active = isset($default_lang_product[0]["active"]) ? $default_lang_product[0]["active"] : "0";
+            $descount = $default_lang_product[0]["descount"];
 
             $product_id = product_model::insertGetId([
                 "name" => filter_var($default_lang_product[0]["name"] , FILTER_SANITIZE_STRING),
                 "price" => filter_var($default_lang_product[0]["price"] , FILTER_SANITIZE_NUMBER_INT),
                 "catigory" => filter_var($catigory , FILTER_SANITIZE_NUMBER_INT),
                 "kind_car" => filter_var($default_lang_product[0]["kind_car"] , FILTER_SANITIZE_NUMBER_INT),
-                "model_car" => filter_var($default_lang_product[0]["model_cars"] , FILTER_SANITIZE_NUMBER_INT),
+                "model_car" => filter_var(implode("___",$default_lang_product[0]["model_cars"]) , FILTER_SANITIZE_NUMBER_INT),
                 "pices" => filter_var($default_lang_product[0]["pices"] , FILTER_SANITIZE_NUMBER_INT),
+                "descount" => filter_var(isset($default_lang_product[0]["descount"]) ? $descount : 0 , FILTER_SANITIZE_NUMBER_INT),
                 "numper_screen" => filter_var($default_lang_product[0]["numper_screen"] , FILTER_SANITIZE_NUMBER_INT),
                 "state" => filter_var($default_lang_product[0]["state"] , FILTER_SANITIZE_NUMBER_INT),
                 "active" => filter_var($active, FILTER_SANITIZE_NUMBER_INT),
@@ -107,26 +109,28 @@ class product_controller extends Controller
             $default_lang_product = array_values($default_lang_product -> all());
             $arr = [];
             foreach ($default_lang_product as $key => $value) {
-                $active = isset($default_lang_product[$key]["active"]) ? $default_lang_product[$key]["active"] : "0";
-                $count_catigory = count($default_lang_product[$key]["main_catigory_id"]);
-                $catigory = $default_lang_product[$key]["main_catigory_id"] ;
+                $active = isset($value["active"]) ? $value["active"] : "0";
+                $count_catigory = count($value["main_catigory_id"]);
+                $catigory = $value["main_catigory_id"] ;
                 $catigory = end($catigory) == null ? $catigory[$count_catigory - 2] : $catigory[$count_catigory - 1];
+                $descount = $value["descount"];
                 $arr[] =
                 [
-                    "name" => filter_var($default_lang_product[$key]["name"] , FILTER_SANITIZE_STRING),
-                    "price" => filter_var($default_lang_product[$key]["price"] , FILTER_SANITIZE_NUMBER_INT),
+                    "name" => filter_var($value["name"] , FILTER_SANITIZE_STRING),
+                    "price" => filter_var($value["price"] , FILTER_SANITIZE_NUMBER_INT),
                     "catigory" => filter_var($catigory , FILTER_SANITIZE_NUMBER_INT),
-                    "kind_car" => filter_var($default_lang_product[$key]["kind_car"] , FILTER_SANITIZE_NUMBER_INT),
-                    "model_car" => filter_var($default_lang_product[$key]["model_cars"] , FILTER_SANITIZE_NUMBER_INT),
-                    "pices" => filter_var($default_lang_product[$key]["pices"] , FILTER_SANITIZE_NUMBER_INT),
-                    "numper_screen" => filter_var($default_lang_product[$key]["numper_screen"] , FILTER_SANITIZE_NUMBER_INT),
-                    "state" => filter_var($default_lang_product[$key]["state"] , FILTER_SANITIZE_NUMBER_INT),
+                    "kind_car" => filter_var($value["kind_car"] , FILTER_SANITIZE_NUMBER_INT),
+                    "model_car" => filter_var($value["model_cars"] , FILTER_SANITIZE_NUMBER_INT),
+                    "pices" => filter_var($value["pices"] , FILTER_SANITIZE_NUMBER_INT),
+                    "descount" => filter_var(isset($value["descount"]) ? $descount : 0 , FILTER_SANITIZE_NUMBER_INT),
+                    "numper_screen" => filter_var($value["numper_screen"] , FILTER_SANITIZE_NUMBER_INT),
+                    "state" => filter_var($value["state"] , FILTER_SANITIZE_NUMBER_INT),
                     "active" => filter_var($active, FILTER_SANITIZE_NUMBER_INT),
-                    "security" => filter_var($default_lang_product[$key]["security"] , FILTER_SANITIZE_NUMBER_INT),
-                    "description" => filter_var($default_lang_product[$key]["description"] , FILTER_SANITIZE_STRING),
+                    "security" => filter_var($value["security"] , FILTER_SANITIZE_NUMBER_INT),
+                    "description" => filter_var($value["description"] , FILTER_SANITIZE_STRING),
                     "description_photo" => filter_var($description_photo , FILTER_SANITIZE_STRING),
                     "product_photo" => filter_var($product_photo , FILTER_SANITIZE_STRING),
-                    "shourtcut" => filter_var($default_lang_product[$key]["shourtcut"] , FILTER_SANITIZE_STRING),
+                    "shourtcut" => filter_var($value["shourtcut"] , FILTER_SANITIZE_STRING),
                     "translation_of" => $product_id,
                     "is_admin" => $is_admin,
                     "created_id" => $created_id,
@@ -189,6 +193,7 @@ class product_controller extends Controller
     public function update(product_request $request, $id)
     {
         try {
+
             if(!product_model::find($id)) {
                 return "";
             }
@@ -209,14 +214,16 @@ class product_controller extends Controller
                 $active = isset($value["active"]) ? "1" : "0";
                 $count_catigory = count($value["main_catigory_id"]);
                 $catigory = $value["main_catigory_id"] ;
+                $descount = $value["descount"];
                 $catigory = $catigory[0] == null ? product_model::find($value["id"]) -> catigory :  (end($catigory) == null ? $catigory[$count_catigory - 2] : $catigory[$count_catigory - 1]);
                 product_model::find($value["id"])->update([
                     "name" => filter_var($value["name"] , FILTER_SANITIZE_STRING),
                     "price" => filter_var($value["price"] , FILTER_SANITIZE_NUMBER_INT),
                     "catigory" => filter_var($catigory , FILTER_SANITIZE_NUMBER_INT),
-                    "kind_car" => filter_var($value["kind_car"] , FILTER_SANITIZE_NUMBER_INT),
+                    "kind_car" => filter_var( implode("___",$value["kind_car"]) , FILTER_SANITIZE_STRING),
                     "model_car" => filter_var($value["model_cars"] , FILTER_SANITIZE_NUMBER_INT),
                     "pices" => filter_var($value["pices"] , FILTER_SANITIZE_NUMBER_INT),
+                    "descount" => filter_var(isset($value["descount"]) ? $descount : 0 , FILTER_SANITIZE_NUMBER_INT),
                     "numper_screen" => filter_var($value["numper_screen"] , FILTER_SANITIZE_NUMBER_INT),
                     "state" => filter_var($value["state"] , FILTER_SANITIZE_NUMBER_INT),
                     "active" => filter_var($active, FILTER_SANITIZE_NUMBER_INT),

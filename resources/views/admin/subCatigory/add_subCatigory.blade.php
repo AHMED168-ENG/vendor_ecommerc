@@ -175,7 +175,7 @@ add subcatigory
     function ajax(e,id){
             $.ajax({
                 enctype:"multipart/form-data",
-                url: "ajax_Get_supcatigory/" + e.target.value ,
+                url: "{{route('ajax_Get_supcatigory1')}}" + "/" + e.target.value ,
                 data: {
                     '_token': "{{csrf_token()}}",
                 },
@@ -197,11 +197,11 @@ add subcatigory
                     }
                     }
                     e.target.parentElement.parentElement.classList.add("active")
-                    if(data.length == 0) {
+                    if(data[0].length == 0) {
                         return "";
                     }
                     ele.querySelector("select optgroup").innerHTML = `<option></option>`
-                    data.forEach(element => {
+                    data[0].forEach(element => {
                         ele.querySelector("select optgroup").innerHTML +=
                         `<option value="`+ element["id"] + `" >` + element["name"] + `</option>`
                     });

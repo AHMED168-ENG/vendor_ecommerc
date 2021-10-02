@@ -47,13 +47,13 @@
                                         <p class="dropdown-item user-aria">
                                             <img class="float-left" src="{{asset("public/asset/frontEnd/img/user.svg")}}" width="49" height="49" />
                                             <span class="float-left ml-2">
-                                                عبدالرحمن محمد
+                                                {{auth() -> guard("admins") -> user() -> name}}
                                                 <br />
                                                 info@gmail.com
                                             </span>
                                         </p>
 
-                                        <a class="dropdown-item" href="#"><i class="fa fa-user"></i> اعدادات</a>
+                                        <a class="dropdown-item" href="{{ route("show_user_seting") }}"><i class="fa fa-user"></i> اعدادات</a>
                                         <a class="dropdown-item" href="#"><i class="fas fa-fw fa-shopping-bag"></i> طلباتي</a>
                                         <a class="dropdown-item" href="#"><i class="far fa-fw fa-heart"></i> قائمة الرغبات</a>
                                         <a class="dropdown-item" href="#"><i class="far fa-fw fa-envelope"></i> اتصل بنا</a>

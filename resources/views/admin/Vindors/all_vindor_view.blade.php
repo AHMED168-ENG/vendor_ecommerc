@@ -49,6 +49,7 @@
                                         <thead>
                                         <tr>
                                             <th> الاسم</th>
+                                            <th> صوره المتجر</th>
                                             <th>الموبيل</th>
                                             <th>الايميل</th>
                                             <th>العنوان</th>
@@ -66,6 +67,7 @@
                                                 @foreach ($vindoer as $item)
                                                     <tr>
                                                         <td>{{$item -> name}}</td>
+                                                        <td><img style="width:100px;height:100px" src="{{asset("public\asset\admin\images\\vindoer_image" . "\\" . $item -> shop_img)}}" alt=""></td>
                                                         <td>{{$item -> mobil }}</td>
                                                         <td>{{$item -> email }}</td>
                                                         <td>{{$item -> addres }}</td>

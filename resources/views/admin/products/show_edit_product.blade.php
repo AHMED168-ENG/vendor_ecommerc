@@ -100,11 +100,11 @@ Edit product
                                             <div class="col-md-6 kind_car">
                                                 <div class="form-group">
                                                     <label for="products">نوع المنتج</label>
-                                                    <select name="products[0][kind_car]" class="select2 form-control">
+                                                    <select multiple name="products[0][kind_car][]" class="select2 form-control">
                                                         <optgroup label="اختر نوع المنتج">
                                                             <option value=""></option>
                                                             @foreach ($kinds_cars::where("shourtcut" , $product -> shourtcut)->get() as $item)
-                                                                <option value="{{$item -> id}}" {{$product -> kind_car == $item -> id ? "selected" : ""}}>{{$item -> name}}</option>
+                                                                <option value="{{$item -> id}}" {{in_array($item -> id , explode("___",$product -> kind_car)) ? "selected" : ""}}>{{$item -> name}}</option>
                                                             @endforeach
                                                         </optgroup>
                                                     </select>
@@ -164,7 +164,7 @@ Edit product
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="price">  السعر</label>
+                                                            <label for="price">  السعر بالريال</label>
                                                             <input type="number" id="price"
                                                             class="form-control"
                                                             placeholder="ادخل شعار المنتج"
@@ -173,6 +173,18 @@ Edit product
                                                             @error("products.0.price")
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="descount">  الخصم اذا اردت</label>
+                                                            <input type="number" id="descount"
+                                                            class="form-control"
+                                                            placeholder="ادخل خصم المنتج اذا اردت"
+                                                            value = "{{$product->descount}}"
+                                                            name="products[{{0}}][descount]">
                                                         </div>
                                                     </div>
 
@@ -207,7 +219,7 @@ Edit product
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="security"> الضمان</label>
+                                                            <label for="security">  الضمان بالشهر</label>
                                                             <input type="number" id="security"
                                                             class="form-control"
                                                             placeholder="ادخل الضمان"
@@ -298,11 +310,10 @@ Edit product
                                                                 <div class="col-md-6 kind_car">
                                                                     <div class="form-group">
                                                                         <label for="products">نوع المنتج</label>
-                                                                        <select name="products[{{$key + 1}}][kind_car]" class=" form-control">
+                                                                        <select multiple name="products[{{$key + 1}}][kind_car][]" class="select2 form-control">
                                                                             <optgroup label="اختر نوع المنتج">
-                                                                                <option value=""></option>
                                                                                 @foreach ($kinds_cars::where("shourtcut" , $val -> shourtcut)->get() as $item)
-                                                                                    <option value="{{$item -> id}}" {{$item -> id == $val -> kind_car ? "selected" : ""}}>{{$item -> name}}</option>
+                                                                                    <option value="{{$item -> id}}" {{in_array($item -> id , explode("___",$val -> kind_car)) ? "selected" : ""}}>{{$item -> name}}</option>
                                                                                 @endforeach
                                                                             </optgroup>
                                                                         </select>
@@ -315,7 +326,7 @@ Edit product
                                                                 <div class="col-md-6 models">
                                                                     <div class="form-group">
                                                                         <label for="products"> موديل المنتج </label>
-                                                                        <select name="products[{{$key + 1}}][model_cars]"  class=" form-control">
+                                                                        <select  name="products[{{$key + 1}}][model_cars]"  class=" form-control">
                                                                             <optgroup label="اختر موديل المنتج">
                                                                                 <option value=""></option>
                                                                                 @foreach ($cars_model as $item)
@@ -360,7 +371,7 @@ Edit product
 
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
-                                                                        <label for="price">  السعر</label>
+                                                                        <label for="price">  السعر بالريال</label>
                                                                         <input type="number" id="price"
                                                                         class="form-control"
                                                                         placeholder="ادخل شعار المنتج"
@@ -369,6 +380,17 @@ Edit product
                                                                         @error("products." . ($key + 1) . ".price")
                                                                         <span class="text-danger"> {{$message}}</span>
                                                                         @enderror
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="descount">  الخصم اذا اردت</label>
+                                                                        <input type="number" id="descount"
+                                                                        class="form-control"
+                                                                        placeholder="ادخل خصم المنتج اذا اردت"
+                                                                        value = "{{$product->descount}}"
+                                                                        name="products[{{$key + 1}}][descount]">
                                                                     </div>
                                                                 </div>
 
@@ -403,7 +425,7 @@ Edit product
 
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
-                                                                        <label for="security"> الضمان</label>
+                                                                        <label for="security">  الضمان بالشهر</label>
                                                                         <input type="number" id="security"
                                                                         class="form-control"
                                                                         placeholder="ادخل الضمان"
@@ -535,7 +557,7 @@ Edit product
     function ajax(e,id){
             $.ajax({
                 enctype:"multipart/form-data",
-                url: "{{route('ajax_Get_supcatigory')}}" + "/" + e.target.value ,
+                url: "{{route('ajax_Get_supcatigory1')}}" + "/" + e.target.value ,
                 data: {
                     '_token': "{{csrf_token()}}",
                 },

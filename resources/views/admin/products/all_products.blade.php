@@ -67,7 +67,7 @@
                                                         <td>{{$item -> name}}</td>
                                                         <td>{{App\models\products\product_model::find($item -> id) -> get_catigory -> name }}</td>
                                                         <td>{{$item -> price }}</td>
-                                                        <td><img style="width:60px;height:60px;display:block;margin:auto" src="{{ asset("public/asset/admin/images/categoris_photo") . "/" . $item -> photo}}" alt=""></td>
+                                                        <td><img style="width:60px;height:60px;display:block;margin:auto" src="{{ asset("public\asset\admin\images\products_image") . "/" . explode("__" , $item -> product_photo)[0]}}" alt=""></td>
                                                         <td>{{$item -> active == 0 ? "closed" : "open"}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group"

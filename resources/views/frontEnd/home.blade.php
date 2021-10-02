@@ -25,29 +25,20 @@
                     @endif
                     <div class="carousel-inner">
 
-                        <div class="carousel-item active">
-                            <div class="row">
-                                <div class="col-md-6 text-center">
-                                    <img src="{{asset("public/asset/frontEnd/img/pro/im1.svg")}}" class="d-block w-100" alt="...">
-                                </div>
-                                <div class="col-md-6">
-                                    <h2 class="slider-title">تسوق قطع غيار سيارتك</h2>
-                                    <p>لكن يجب أن أشرح لكم كيف كل هذه الفكرة الخاطئة للتنديد</p>
+                        @foreach ($sliders as $key => $item)
+                            <div class="carousel-item {{$key == 0 ? "active" : ""}}">
+                                <div class="row">
+                                    <div class="col-md-6 text-center">
+                                        <img src="{{asset("public/asset/admin/images/sliders_photo/") . "/" . $item -> img}}" class="d-block w-100" alt="...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h2 class="slider-title">{{$item -> title}}</h2>
+                                        <p>{{$item -> info}}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
 
-                        <div class="carousel-item">
-                            <div class="row">
-                                <div class="col-md-6 text-center">
-                                    <img src="{{asset("public/asset/frontEnd/img/pro/im2.svg")}}" class="d-block w-100" alt="...">
-                                </div>
-                                <div class="col-md-6">
-                                    <h2 class="slider-title">تسوق قطع غيار سيارتك</h2>
-                                    <p>لكن يجب أن أشرح لكم كيف كل هذه الفكرة الخاطئة للتنديد</p>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
 
@@ -119,48 +110,22 @@
 
                     <h4>
                         <span class="title">الأقسام الرئيسيه</span>
-                        <span class="float-right view-all">إظهار الكل <i class="fas fa-angle-left"></i></span>
+                        <a href="{{route("all_product_home")}}" class="float-right view-all">إظهار الكل <i class="fas fa-angle-left"></i></a>
                     </h4>
 
                     <div class="row">
-                        <div class="col-lg-3">
-                            <div class="cta-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/car1.svg")}}" class="img-fluid" alt="0" />
-                                    <p class="text-center pb-2">الأجزاء الميكانيكية</p>
-                                </a>
+                        @foreach ($main_catigory as $item)
+                            <div class="col-lg-3">
+                                <div class="cta-box">
+                                    <a href="">
+                                        <img src="{{asset("public/asset/admin/images/categoris_photo") . "/" . $item -> photo}}" class="img-fluid" alt="0" />
+                                        <p class="text-center pb-2">{{$item -> name}}</p>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="col-lg-3">
-                            <div class="cta-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/car2.svg")}}" class="img-fluid" alt="0" />
-                                    <p class="text-center pb-2">قطع كهربائية</p>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3">
-                            <div class="cta-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/car3.svg")}}" class="img-fluid" alt="0" />
-                                    <p class="text-center pb-2">أجزاء الجسم</p>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3">
-                            <div class="cta-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/car4.svg")}}" class="img-fluid" alt="0" />
-                                    <p class="text-center pb-2">إكسسوارات</p>
-                                </a>
-                            </div>
-                        </div>
+                        @endforeach
 
                     </div>
-
                 </div>
             </div>
             <!-- End Section categoreis -->
@@ -171,108 +136,20 @@
                 <div class="container">
                     <h4>
                         <span class="title">ماركات السيارات</span>
-                        <span class="float-right view-all">إظهار الكل <i class="fas fa-angle-left"></i></span>
+                        <a href="{{route("all_cars_mark")}}" class="float-right view-all">إظهار الكل <i class="fas fa-angle-left"></i></a>
                     </h4>
 
                     <div class="row">
 
-                        <div class="col-lg-2">
-                            <div class="brand-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/cars-brands/bmv.svg")}}" class="img-fluid" alt="0" />
-                                </a>
+                        @foreach ($all_cars_mark as $item)
+                            <div class="col-lg-2">
+                                <div class="brand-box">
+                                    <a href="#">
+                                        <img src="{{asset("public\asset\admin\images\products_image\\car_logo_photo") . "\\" . $item -> car_logo_photo}}" class="img-fluid" alt="0" />
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="col-lg-2">
-                            <div class="brand-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/cars-brands/fol.svg")}}" class="img-fluid" alt="0" />
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2">
-                            <div class="brand-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/cars-brands/for.svg")}}" class="img-fluid" alt="0" />
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2">
-                            <div class="brand-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/cars-brands/jeep.svg")}}" class="img-fluid" alt="0" />
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2">
-                            <div class="brand-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/cars-brands/kia.svg")}}" class="img-fluid" alt="0" />
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2">
-                            <div class="brand-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/cars-brands/nis.svg")}}" class="img-fluid" alt="0" />
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2">
-                            <div class="brand-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/cars-brands/op.svg")}}" class="img-fluid" alt="0" />
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2">
-                            <div class="brand-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/cars-brands/toy.svg")}}" class="img-fluid" alt="0" />
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2">
-                            <div class="brand-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/cars-brands/vol.svg")}}" class="img-fluid" alt="0" />
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2">
-                            <div class="brand-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/cars-brands/zz.svg")}}" class="img-fluid" alt="0" />
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2">
-                            <div class="brand-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/cars-brands/bmv.svg")}}" class="img-fluid" alt="0" />
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2">
-                            <div class="brand-box">
-                                <a href="#">
-                                    <img src="{{asset("public/asset/frontEnd/img/cars-brands/fol.svg")}}" class="img-fluid" alt="0" />
-                                </a>
-                            </div>
-                        </div>
-
-
+                        @endforeach
 
                     </div>
 
@@ -290,12 +167,12 @@
                     <br />
 
                     <section class="center slider">
-
-                        <div>
-                            <div class="slide-content text-center">
-                                <img src="{{asset("public/asset/frontEnd/img/sellers/1.svg")}}" class="img-fluid" alt="0" />
-                                <h4>عبدالرحمن محمد</h4>
-                                <p><i class="fas fa-map-marker-alt"></i> مصر- القاهرة</p>
+                        @foreach ($special_vindoer as $item)
+                        <div style="height:353px">
+                            <div style="height:100%" class="slide-content text-center">
+                                <img style="height:100%" src="{{asset("public\asset\admin\images\\vindoer_image") . "/" . $item -> shop_img}}" class="img-fluid" alt="0" />
+                                <h4>{{$item -> name}}</h4>
+                                <p><i class="fas fa-map-marker-alt"></i> {{$item -> addres}}</p>
                                 <div>
                                     <span class="fa fa-star checked"></span>
                                     <span class="fa fa-star checked"></span>
@@ -305,53 +182,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div>
-                            <div class="slide-content text-center">
-                                <img src="{{asset("public/asset/frontEnd/img/pro/pro2.svg")}}" class="img-fluid" alt="0" />
-                                <h4>عبدالرحمن محمد</h4>
-                                <p><i class="fas fa-map-marker-alt"></i> مصر- القاهرة</p>
-                                <div>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="slide-content text-center">
-                                <img src="{{asset("public/asset/frontEnd/img/sellers/3.svg")}}" class="img-fluid" alt="0" />
-                                <h4>عبدالرحمن محمد</h4>
-                                <p><i class="fas fa-map-marker-alt"></i> مصر- القاهرة</p>
-                                <div>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="slide-content text-center">
-                                <img src="{{asset("public/asset/frontEnd/img/sellers/4.svg")}}" class="img-fluid" alt="0" />
-                                <h4>عبدالرحمن محمد</h4>
-                                <p><i class="fas fa-map-marker-alt"></i> مصر- القاهرة</p>
-                                <div>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </div>
-                        </div>
-
-
+                    @endforeach
                     </section>
 
                 </div>

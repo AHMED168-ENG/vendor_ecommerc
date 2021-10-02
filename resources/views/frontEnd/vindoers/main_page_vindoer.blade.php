@@ -6,16 +6,16 @@
                 <div class="container">
                     <h4>
                         <span class="title">ماركات السيارات</span>
-                        <span class="float-right view-all">إظهار الكل <i class="fas fa-angle-left"></i></span>
+                        <a href="{{route("all_my_mark_vindoer")}}" class="float-right view-all">إظهار الكل <i class="fas fa-angle-left"></i></span>
                     </h4>
 
                     <div class="row">
 
-                        @foreach ($kind_car_logo_img as $item)
+                        @foreach ($all_cars_mark as $item)
                         <div class="col-lg-2">
                             <div class="brand-box">
                                 <a href="#">
-                                    <img style="border-radius: 4px" src="{{asset("public\asset\admin\images\products_image\car_logo_photo") . "/" . $item -> get_kind_car["car_logo_photo"]}}" class="img-fluid" alt="0" />
+                                    <img style="border-radius: 4px" src="{{asset("public\asset\admin\images\products_image\car_logo_photo") . "/" . $item-> car_logo_photo}}" class="img-fluid" alt="0" />
                                 </a>
                             </div>
                         </div>
@@ -58,102 +58,98 @@
                             <h5 class="title">
                                 <span>المنتجات التي تم اضافتها مؤخرا</span>
                             </h5>
-
+                        </div>
+                    </div>
                             <br />
 
-                            <div class="row">
+                    <div class="row">
 
-                                @foreach ($product_vindoer as $key => $item)
-                                <div class="wrapper col-md-3" style="border:1px solid #ddd ;padding:0;margin:0">
-                                    <div class="container" style="width:100% !important ; padding:0">
-                                      <div class="top" style="background-size:cover;position: relative;background:url('{{asset("public/asset/admin/images/products_image") . "/" . explode("__" , $item -> product_photo)[0]}}')">
-                                        <div style="width:100%;
-                                        height:100%;
-                                        position:absolute;
-                                        top:0;
-                                        left:0;
-                                        background:rgba(0,0,0,0.1)"></div>
-                                     </div>
-                                      <div class="bottom">
-                                        <div class="left">
-                                          <div class="details">
-                                            <h1 class="h4" style="margin-bottom:5px">{{$item -> name}}</h1>
-                                            <p>£ <span style="font-size:20px">{{$item -> price}}</span></p>
-                                          </div>
-                                          <div class="buy" ><a href="{{route("edit_product_vindoer" , $item -> id)}}" style="display: flex;flex-direction:column;height:50%;background:#737070;"><i style=";height:100%;padding:0;display:flex !important;align-items:center;justify-content:center" class="fa fa-edit"></i></a><a href="" style="display: flex;flex-direction:column;height:50%;background:#757575;"><i style="padding:0;display:flex !important;align-items:center;justify-content:center;height:100%" class="fa fa-trash"></i></a></div>
-                                        </div>
-                                        <div class="right">
-                                          <div class="done" style=""><i style="padding:0" class="fa fa-check"></i></div>
-                                          <div class="details">
-                                            <h1>Chair</h1>
-                                            <p>Added to your cart</p>
-                                          </div>
-                                          <div class="remove" onclick="remove({{$key}})" style="clear:none;display:flex !important;align-items:center;justify-content:center;"><i style="padding:0" class="fa fa-times"></i></div>
-                                        </div>
-                                      </div>
+                        @foreach ($product_vindoer as $key => $item)
+                        <div class="wrapper col-md-3" style="border:1px solid #ddd ;padding:0;margin:0">
+                            <div class="container" style="width:100% !important ; padding:0">
+                                <div class="top" style="background-size:cover;position: relative;background:url('{{asset("public/asset/admin/images/products_image") . "/" . explode("__" , $item -> product_photo)[0]}}')">
+                                <div style="width:100%;
+                                height:100%;
+                                position:absolute;
+                                top:0;
+                                left:0;
+                                background:rgba(0,0,0,0.1)"></div>
+                                </div>
+                                <div class="bottom">
+                                <div class="left">
+                                    <div class="details">
+                                    <h1 class="h4" style="margin-bottom:5px">{{$item -> name}}</h1>
+                                    <p>£ <span style="font-size:20px">{{$item -> price}}</span></p>
                                     </div>
-                                    <div class="inside">
-                                      <div class="icon"><i class="material-icons">info_outline</i></div>
-                                      <div class="contents">
-                                        <table>
-                                          <tr>
-                                            <th>Width</th>
-                                            <th>Height</th>
-                                          </tr>
-                                          <tr>
-                                            <td>3000mm</td>
-                                            <td>4000mm</td>
-                                          </tr>
-                                          <tr>
-                                            <th>Something</th>
-                                            <th>Something</th>
-                                          </tr>
-                                          <tr>
-                                            <td>200mm</td>
-                                            <td>200mm</td>
-                                          </tr>
-                                          <tr>
-                                            <th>Something</th>
-                                            <th>Something</th>
-                                          </tr>
-                                          <tr>
-                                            <td>200mm</td>
-                                            <td>200mm</td>
-                                          </tr>
-                                          <tr>
-                                            <th>Something</th>
-                                            <th>Something</th>
-                                          </tr>
-                                          <tr>
-                                            <td>200mm</td>
-                                            <td>200mm</td>
-                                          </tr>
-                                        </table>
-                                      </div>
+                                    <div class="buy" ><a href="{{route("edit_product_vindoer" , $item -> id)}}" style="display: flex;flex-direction:column;height:50%;background:#737070;"><i style=";height:100%;padding:0;display:flex !important;align-items:center;justify-content:center" class="fa fa-edit"></i></a><a href="" style="display: flex;flex-direction:column;height:50%;background:#757575;"><i style="padding:0;display:flex !important;align-items:center;justify-content:center;height:100%" class="fa fa-trash"></i></a></div>
+                                </div>
+                                <div class="right">
+                                    <div class="done" style=""><i style="padding:0" class="fa fa-check"></i></div>
+                                    <div class="details">
+                                    <h1>Chair</h1>
+                                    <p>Added to your cart</p>
                                     </div>
-                                  </div>
-                                @endforeach
+                                    <div class="remove" onclick="remove({{$key}})" style="clear:none;display:flex !important;align-items:center;justify-content:center;"><i style="padding:0" class="fa fa-times"></i></div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="inside">
+                                <div class="icon"><i class="material-icons">info_outline</i></div>
+                                <div class="contents">
+                                <table>
+                                    <tr>
+                                    <th>Width</th>
+                                    <th>Height</th>
+                                    </tr>
+                                    <tr>
+                                    <td>3000mm</td>
+                                    <td>4000mm</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Something</th>
+                                    <th>Something</th>
+                                    </tr>
+                                    <tr>
+                                    <td>200mm</td>
+                                    <td>200mm</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Something</th>
+                                    <th>Something</th>
+                                    </tr>
+                                    <tr>
+                                    <td>200mm</td>
+                                    <td>200mm</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Something</th>
+                                    <th>Something</th>
+                                    </tr>
+                                    <tr>
+                                    <td>200mm</td>
+                                    <td>200mm</td>
+                                    </tr>
+                                </table>
+                                </div>
+                            </div>
+                            </div>
+                        @endforeach
 
 
-                                <div class="col-md-4 col-sm-6" style="    margin-top: 15px; ">
-                                    <div class="product-grid3">
-                                        <div class="product-image3">
-                                            <a href="{{Route("add_product_vindoer")}}">
-                                                <img class="pic-1" src="{{asset("public/asset/frontEnd/img/add.svg")}}" style="height:200px;padding:11px;" />
-                                            </a>
-                                        </div>
-
-                                    </div>
+                        <div class="col-md-3 col-sm-6" style=" margin-top: 15px; ">
+                            <div class="product-grid3">
+                                <div class="product-image3">
+                                    <a href="{{Route("add_product_vindoer")}}">
+                                        <img class="pic-1" src="{{asset("public/asset/frontEnd/img/add.svg")}}" style="height:200px;padding:11px;" />
+                                    </a>
                                 </div>
 
+                            </div>
+                        </div>
 
 
-                            </div><!-- End row -->
-                        </div><!-- End col 9 -->
 
-
-                    </div><!-- End Row -->
-
+                    </div><!-- End row -->
                 </div>
             </div>
             <!-- End Section Products -->

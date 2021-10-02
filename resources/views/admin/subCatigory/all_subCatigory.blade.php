@@ -64,7 +64,7 @@
                                                 @foreach ($data as $item)
                                                     <tr>
                                                         <td>{{$item -> name}}</td>
-                                                        <td>{{$mainCatigory_model::where("id" , $item->main_catigory_id)->get()[0]->name}}</td>
+                                                        <td>{{get_catigory_name_from_supcatigory($item -> id)}}</td>
                                                         <td><img style="width:60px;height:60px;display:block;margin:auto" src="{{ asset("public/asset/admin/images/subCatigory_photo") . "/" . $item -> photo}}" alt=""></td>
                                                         <td>{{$item -> active == "0" ? "closed" : "open"}}</td>
                                                         <td>
